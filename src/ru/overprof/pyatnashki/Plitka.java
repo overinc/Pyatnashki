@@ -69,13 +69,13 @@ public class Plitka extends Sprite{
 		else
 			isRightPos = false;
 		int x;
-/*		if (isRightPos)
+		if (isRightPos)
 			x = 1;
 		else 
 			x = 0;
 		String s;
 		s = String.format("%01d",x);
-		zeroone.setText(s);*/
+		zeroone.setText(s);
 	}
 	
 

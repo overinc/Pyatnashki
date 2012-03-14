@@ -69,20 +69,28 @@ public class GameScene extends Scene {
 									if (touchCoord > startCoord && touchCoord < extremumCoord) {
 										this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);								
 									}
-									else if (touchCoord >= extremumCoord) {
-										this.setPosition(this.getX(), LEFTUPPERPOINTOFPLITKI.y + val.y * WIDHTOFPLITKAANDDISTANSE);
-										this.positionY = val.y;
-										this.renewRightPos();
+									if (pSceneTouchEvent.isActionUp()) {
+										if (touchCoord > startCoord && touchCoord < extremumCoord)
+											this.setPosition(this.getX(), startCoord);
+										if (touchCoord >= extremumCoord) {
+											this.setPosition(this.getX(), LEFTUPPERPOINTOFPLITKI.y + val.y * WIDHTOFPLITKAANDDISTANSE);
+											this.positionY = val.y;
+											this.renewRightPos();
+										}
 									}
 									return true;
 								} else { // Смещение вверх
 									extremumCoord = LEFTUPPERPOINTOFPLITKI.y + this.positionY * WIDHTOFPLITKAANDDISTANSE - WIDHTOFPLITKAANDDISTANSE / 2;
 									if (touchCoord < startCoord && touchCoord > extremumCoord)
 										this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);
-									else if (touchCoord <= extremumCoord) {
-										this.setPosition(this.getX(), LEFTUPPERPOINTOFPLITKI.y + val.y * WIDHTOFPLITKAANDDISTANSE);
-										this.positionY = val.y;
-										this.renewRightPos();
+									if (pSceneTouchEvent.isActionUp()) {
+										if (touchCoord < startCoord && touchCoord > extremumCoord)
+											this.setPosition(this.getX(), startCoord);
+										if (touchCoord <= extremumCoord) {
+											this.setPosition(this.getX(), LEFTUPPERPOINTOFPLITKI.y + val.y * WIDHTOFPLITKAANDDISTANSE);
+											this.positionY = val.y;
+											this.renewRightPos();
+										}
 									}
 								}
 							}
