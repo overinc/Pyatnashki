@@ -34,8 +34,8 @@ import android.widget.Toast;
 
 public class PyatnashkiActivity extends BaseGameActivity {
 	
-	public static final int CAMERA_WIDTH = 600;
-	public static final int CAMERA_HEIGHT = 500;	
+	public static final int CAMERA_WIDTH = 800;
+	public static final int CAMERA_HEIGHT = 700;	
 
 	public static PyatnashkiActivity main_;
 	
@@ -67,7 +67,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	@Override
 	public void onLoadResources() {
 		this.mYa = new Texture(64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mYaTextureRegion = TextureRegionFactory.createFromAsset(this.mYa, this, "gfx/me64.png", 0, 0);
+		this.mYaTextureRegion = TextureRegionFactory.createFromAsset(this.mYa, this, "gfx/my64.png", 0, 0);
 		
 		this.mAlexey = new Texture(64,64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.mAlexeyTextureRegion = TextureRegionFactory.createFromAsset(this.mAlexey, this, "gfx/leha64.jpg",0,0);
