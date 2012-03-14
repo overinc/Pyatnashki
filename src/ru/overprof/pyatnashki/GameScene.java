@@ -1,5 +1,6 @@
 package ru.overprof.pyatnashki;
 
+import java.lang.reflect.WildcardType;
 import java.util.Random;
 import java.util.Timer;
 
@@ -54,22 +55,45 @@ public class GameScene extends Scene {
 			final boolean touch = true;
 			 
 			setOfTiles[i] = new Plitka( startPos.x, startPos.y, PyatnashkiActivity.mYaTextureRegion, i + 1, PyatnashkiActivity.mFont){		
-				/*@Override
-				public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {				
-					//if (touch){
-						this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);
-						return true;*/
 				@Override
 				public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-					this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);
-					return true;
-						
-				
-						
-						
-					//}
-					//else
-				/*	if (pSceneTouchEvent.isActionDown()){
+					if (PyatnashkiActivity.REALITY) {
+						Validate val = IsEmptyNear(setOfTiles, this.positionX, this.positionY);							
+						if (val.is) {
+							if (val.x == this.positionX) { // Вертикальное смещение
+								float startCoord = LEFTUPPERPOINTOFPLITKI.y + this.positionY * WIDHTOFPLITKAANDDISTANSE;
+								float extremumCoord;
+								float touchCoord = pSceneTouchEvent.getY() - this.getHeight() / 2;
+								if (this.positionY < val.y) { // Смещение вниз
+									extremumCoord = LEFTUPPERPOINTOFPLITKI.y + this.positionY * WIDHTOFPLITKAANDDISTANSE + WIDHTOFPLITKAANDDISTANSE / 2;
+									if (touchCoord > startCoord && touchCoord < extremumCoord) {
+										this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);								
+									}
+									else if (touchCoord >= extremumCoord) {
+										this.setPosition(this.getX(), LEFTUPPERPOINTOFPLITKI.y + val.y * WIDHTOFPLITKAANDDISTANSE);
+										this.positionY = val.y;
+										this.renewRightPos();
+									}
+									return true;
+								} else { // Смещение вверх
+									extremumCoord = LEFTUPPERPOINTOFPLITKI.y + this.positionY * WIDHTOFPLITKAANDDISTANSE - WIDHTOFPLITKAANDDISTANSE / 2;
+									if (touchCoord < startCoord && touchCoord > extremumCoord)
+										this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);
+									else if (touchCoord <= extremumCoord) {
+										this.setPosition(this.getX(), LEFTUPPERPOINTOFPLITKI.y + val.y * WIDHTOFPLITKAANDDISTANSE);
+										this.positionY = val.y;
+										this.renewRightPos();
+									}
+								}
+							}
+							else { // Горизонтальное смещение
+								this.setPosition(pSceneTouchEvent.getX() - this.getWidth() / 2, this.getY());
+								return true;
+							}
+						}
+					}
+					else {
+					if (pSceneTouchEvent.isActionDown()){
 						Validate val = IsEmptyNear(setOfTiles, this.positionX, this.positionY);							
 						if (val.is){							
 							this.setPosition(LEFTUPPERPOINTOFPLITKI.x + val.x * WIDHTOFPLITKAANDDISTANSE, LEFTUPPERPOINTOFPLITKI.y + val.y * WIDHTOFPLITKAANDDISTANSE);
@@ -89,8 +113,9 @@ public class GameScene extends Scene {
 								cisla.setText("URAAAAAAAAAAAA");
 						}
 						return true;
-					}*/
-					//return false;
+					}
+				}
+					return true;
 				}
 
 			};
@@ -105,19 +130,19 @@ public class GameScene extends Scene {
 		{
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {				
-				if(pSceneTouchEvent.isActionMove())
+				/*if(pSceneTouchEvent.isActionMove())
 				this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);
-				return true;
+				return true;*/
 				
 				//setOfTiles[1].setPosition(500,300);
-			/*	if(pSceneTouchEvent.isActionDown()){
+				if(pSceneTouchEvent.isActionDown()){
 				Random rnd = new Random();
 				int r = rnd.nextInt(7);
 				String s;
 				s = String.format("%02d",r);
 				cisla.setText(s);
 				}
-				return true;*/
+				return true;
 				
 			}
 

@@ -54,7 +54,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture mFontTexture;
 	public static Font mFont;
 	
-	
+	public static Boolean REALITY = true;
 	
 	@Override
 	public Engine onLoadEngine() {
