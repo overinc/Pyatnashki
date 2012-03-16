@@ -18,8 +18,8 @@ import android.sax.StartElementListener;
 public class Plitka extends Sprite{
 
 	private final static int COUNTER = GameScene.COUNTER;
-	private final static Validate LEFTUPPERPOINTOFPLITKI = GameScene.LEFTUPPERPOINTOFPLITKI;
-	public static final int WIDHTOFPLITKAANDDISTANSE = GameScene.WIDHTOFPLITKAANDDISTANSE;
+	private final static Validate LeftUpperAreaPoint = GameScene.LeftUpperAreaPoint;
+	public static final int WidthPlitkaWithDistanse = GameScene.WidthPlitkaWithDistanse;
 	
 	private short id;
 	public boolean isRightPos;
@@ -29,7 +29,7 @@ public class Plitka extends Sprite{
 	private ChangeableText zeroone;
 
 	public Plitka(final float pX, final float pY, final TextureRegion pTextureRegion, int pId,Font pFont) {		
-		super(LEFTUPPERPOINTOFPLITKI.x + pX * WIDHTOFPLITKAANDDISTANSE, LEFTUPPERPOINTOFPLITKI.y + pY * WIDHTOFPLITKAANDDISTANSE, pTextureRegion.getWidth(), pTextureRegion.getHeight(), pTextureRegion);
+		super(LeftUpperAreaPoint.x + pX * WidthPlitkaWithDistanse, LeftUpperAreaPoint.y + pY * WidthPlitkaWithDistanse, pTextureRegion.getWidth(), pTextureRegion.getHeight(), pTextureRegion);
 		positionX = (int) pX;
 		positionY = (int) pY;
 		id = (short) pId;
@@ -43,7 +43,7 @@ public class Plitka extends Sprite{
 		
 		String s;
 		s = String.format("%01d",id);		
-		number = new Text(0,0,pFont,s);
+		number = new Text(12,10,pFont,s);
 		this.attachChild(number);
 		
 		int x;

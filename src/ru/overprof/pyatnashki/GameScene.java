@@ -1,5 +1,6 @@
 package ru.overprof.pyatnashki;
 
+import java.lang.reflect.WildcardType;
 import java.util.Random;
 import java.util.Timer;
 
@@ -15,8 +16,10 @@ import org.anddev.andengine.input.touch.TouchEvent;
 public class GameScene extends Scene {
 	
 	public static final int COUNTER = 4;
-	public static final Validate LEFTUPPERPOINTOFPLITKI = new Validate();
-	public static final int WIDHTOFPLITKAANDDISTANSE = 70;
+	public static final Validate LeftUpperAreaPoint = new Validate();
+	public static final float Multiplexor = (float) 1.5;
+	public static final int WidthPlitkaWithDistanse = (int) (PyatnashkiActivity.mYaTextureRegion.getWidth() * Multiplexor + 10);
+	
 	
 	int steps = 0;
 	
@@ -25,11 +28,11 @@ public class GameScene extends Scene {
 
 		this.setBackground(new ColorBackground(0.01023f, 0.4867f, 0.2170f));		
 		
-		final ChangeableText cisla = new ChangeableText(500, 50, PyatnashkiActivity.mFont, "", 50);
+		final ChangeableText cisla = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 65, PyatnashkiActivity.mFont, "", 50);
 		final ChangeableText time = new ChangeableText(500, 150, PyatnashkiActivity.mFont, "", 50);
 		
-		LEFTUPPERPOINTOFPLITKI.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WIDHTOFPLITKAANDDISTANSE * 2;
-		LEFTUPPERPOINTOFPLITKI.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WIDHTOFPLITKAANDDISTANSE * 2;
+		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2;
+		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2;
 		
 		int startRnd = 0;
 		boolean[] rndMas = new boolean[15];
@@ -54,70 +57,151 @@ public class GameScene extends Scene {
 			final boolean touch = true;
 			 
 			setOfTiles[i] = new Plitka( startPos.x, startPos.y, PyatnashkiActivity.mYaTextureRegion, i + 1, PyatnashkiActivity.mFont){		
-				/*@Override
-				public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {				
-					//if (touch){
-						this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);
-						return true;*/
 				@Override
 				public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-					this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);
-					return true;
-						
-				
-						
-						
-					//}
-					//else
-				/*	if (pSceneTouchEvent.isActionDown()){
-						Validate val = IsEmptyNear(setOfTiles, this.positionX, this.positionY);							
-						if (val.is){							
-							this.setPosition(LEFTUPPERPOINTOFPLITKI.x + val.x * WIDHTOFPLITKAANDDISTANSE, LEFTUPPERPOINTOFPLITKI.y + val.y * WIDHTOFPLITKAANDDISTANSE);
-							this.positionX = val.x;
-							this.positionY = val.y;
-							this.renewRightPos();
-							boolean win = true;
-							for (int i = 0; i < COUNTER * COUNTER - 1; i++)
-								if (!setOfTiles[i].isRightPos)
-									win = false;
-							steps++;
-							String s;
-							s = String.format("%01d",steps);		
-							//Text number = new Text(0,0,mFont,s);
-							cisla.setText(s);
-							if (win)
-								cisla.setText("URAAAAAAAAAAAA");
+					Validate val = IsEmptyNear(setOfTiles, this.positionX, this.positionY);							
+					if (val.is) {
+						if (PyatnashkiActivity.REALITY) { // Плавное перемещение
+							float extremumRatio = 3 * WidthPlitkaWithDistanse / 5;
+							if (val.x == this.positionX) { // Вертикальное смещение
+								float startCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse;
+								float extremumCoord;								
+								float touchCoord = pSceneTouchEvent.getY() - this.getHeight() / 2;
+								if (this.positionY < val.y) { // Смещение вниз
+									extremumCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse + extremumRatio;
+									if (pSceneTouchEvent.isActionMove()) 
+										if (touchCoord >= startCoord && touchCoord <= startCoord + WidthPlitkaWithDistanse) {
+											this.setPosition(this.getX(), touchCoord);								
+										}
+									if (pSceneTouchEvent.isActionUp()) {
+										if (/*touchCoord > startCoord && */touchCoord < extremumCoord)
+											this.setPosition(this.getX(), startCoord);
+										else /*if (touchCoord >= extremumCoord) */{
+											this.setPosition(this.getX(), LeftUpperAreaPoint.y + val.y * WidthPlitkaWithDistanse);
+											this.positionY = val.y;
+											this.renewRightPos();
+											steps++;
+											String s;
+											s = String.format("%01d",steps);
+											cisla.setText(s);
+										}
+									}
+									return true;
+								} else { // Смещение вверх
+									extremumCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse - extremumRatio;
+									if (pSceneTouchEvent.isActionMove())
+										if (touchCoord < startCoord && touchCoord > startCoord - WidthPlitkaWithDistanse)
+											this.setPosition(this.getX(), touchCoord);
+									if (pSceneTouchEvent.isActionUp()) {
+										if (/*touchCoord < startCoord && */touchCoord > extremumCoord)
+											this.setPosition(this.getX(), startCoord);
+										else/* if (touchCoord <= extremumCoord) */{
+											this.setPosition(this.getX(), LeftUpperAreaPoint.y + val.y * WidthPlitkaWithDistanse);
+											this.positionY = val.y;
+											this.renewRightPos();
+											steps++;
+											String s;
+											s = String.format("%01d",steps);
+											cisla.setText(s);
+										}
+									}
+								}
+							}
+							else { // Горизонтальное смещение
+								float startCoord = LeftUpperAreaPoint.x + this.positionX * WidthPlitkaWithDistanse;
+								float extremumCoord;								
+								float touchCoord = pSceneTouchEvent.getX() - this.getWidth() / 2;
+								if (this.positionX < val.x) { // Смещение вправо
+									extremumCoord = LeftUpperAreaPoint.x + this.positionX * WidthPlitkaWithDistanse + extremumRatio;
+									if (pSceneTouchEvent.isActionMove()) {
+										if (touchCoord >= startCoord && touchCoord <= startCoord + WidthPlitkaWithDistanse)
+											this.setPosition(touchCoord, this.getY());
+									}
+									if (pSceneTouchEvent.isActionUp()) {
+										if (/*touchCoord > startCoord && */touchCoord < extremumCoord)
+											this.setPosition(startCoord, this.getY());
+										else /*if (touchCoord >= extremumCoord) */{
+											this.setPosition(startCoord + WidthPlitkaWithDistanse, this.getY());
+											this.positionX = val.x;
+											this.renewRightPos();
+											steps++;
+											String s;
+											s = String.format("%01d",steps);
+											cisla.setText(s);
+										}
+									}
+								}
+								else { // Смещение влево
+									extremumCoord = LeftUpperAreaPoint.x + this.positionX * WidthPlitkaWithDistanse - extremumRatio;
+									if (pSceneTouchEvent.isActionMove()) {
+										if (touchCoord < startCoord && touchCoord > startCoord - WidthPlitkaWithDistanse)
+											this.setPosition(touchCoord, this.getY());
+									}
+									if (pSceneTouchEvent.isActionUp()) {
+										if (/*touchCoord < startCoord && */touchCoord > extremumCoord)
+											this.setPosition(startCoord, this.getY());
+										else /*if (touchCoord <= extremumCoord)*/ {
+											this.setPosition(startCoord - WidthPlitkaWithDistanse, this.getY());
+											this.positionX = val.x;
+											this.renewRightPos();
+											steps++;
+											String s;
+											s = String.format("%01d",steps);
+											cisla.setText(s);
+										}
+									}
+								}
+							}
+
 						}
-						return true;
-					}*/
-					//return false;
+						else { // Мгновенное перемещение
+							if (pSceneTouchEvent.isActionDown()){													
+								if (val.is){							
+									this.setPosition(LeftUpperAreaPoint.x + val.x * WidthPlitkaWithDistanse, LeftUpperAreaPoint.y + val.y * WidthPlitkaWithDistanse);
+									this.positionX = val.x;
+									this.positionY = val.y;
+									this.renewRightPos();
+									boolean win = true;
+									for (int i = 0; i < COUNTER * COUNTER - 1; i++)
+										if (!setOfTiles[i].isRightPos)
+											win = false;
+									steps++;
+									String s;
+									s = String.format("%01d",steps);
+									cisla.setText(s);
+									if (win)
+										cisla.setText("URAAAAAAAAAAAA");
+								}
+								return true;
+							}
+						}						
+					}
+					return true;
 				}
 
 			};
-			//setOfTiles[i].setId(i+1);
-			
-			//setOfTiles[i].attachChild(cisla);
+			setOfTiles[i].setScale(Multiplexor);
 			this.getLastChild().attachChild(setOfTiles[i]);
 			this.registerTouchArea(setOfTiles[i]);
 		}	
 		
-		final Sprite button = new Sprite(400, 50, PyatnashkiActivity.mAlexeyTextureRegion)
+		final Sprite button = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 0, PyatnashkiActivity.mAlexeyTextureRegion)
 		{
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {				
-				if(pSceneTouchEvent.isActionMove())
+				/*if(pSceneTouchEvent.isActionMove())
 				this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);
-				return true;
+				return true;*/
 				
 				//setOfTiles[1].setPosition(500,300);
-			/*	if(pSceneTouchEvent.isActionDown()){
+				if(pSceneTouchEvent.isActionDown()){
 				Random rnd = new Random();
 				int r = rnd.nextInt(7);
 				String s;
 				s = String.format("%02d",r);
 				cisla.setText(s);
 				}
-				return true;*/
+				return true;
 				
 			}
 
@@ -148,7 +232,7 @@ public class GameScene extends Scene {
 		this.registerTouchArea(button);
 		this.setTouchAreaBindingEnabled(true);
 		
-		Rectangle backItem = new Rectangle(50, 450, 200, 50)
+		Rectangle backItem = new Rectangle(PyatnashkiActivity.CAMERA_WIDTH / 2 - 100, PyatnashkiActivity.CAMERA_HEIGHT - 100, 200, 50)
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
