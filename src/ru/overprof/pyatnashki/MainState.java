@@ -9,6 +9,7 @@ public class MainState extends Scene {
 	
 	public static MainMenuScene mainMenuScene_ = new MainMenuScene(1);
 	public static GameScene gameScene_ = new GameScene(1);
+	public static SettingsScene settingsScene_ = new SettingsScene(1);
 	
 	 //private static int gameState_;
 	static GAMESTATUS gameStatus_;
@@ -17,6 +18,7 @@ public class MainState extends Scene {
 		super(pLayerCount);
 		attachChild(mainMenuScene_);
 		attachChild(gameScene_);
+		attachChild(settingsScene_);
 		
 		ShowMainMenu();
 		gameStatus_ = GAMESTATUS.MainMenuStatus; //?
@@ -26,13 +28,22 @@ public class MainState extends Scene {
 	public static void ShowGameScene() {
 		gameScene_.Show();
 		mainMenuScene_.Hide();
+		settingsScene_.Hide();
 		gameStatus_ = GAMESTATUS.GamePlayingStatus;
 	}
 	
 	public static void ShowMainMenu() {
 		mainMenuScene_.Show();
 		gameScene_.Hide();
+		settingsScene_.Hide();
 		gameStatus_ = GAMESTATUS.MainMenuStatus;
+	}
+	
+	public static void ShowSettings() {
+		settingsScene_.Show();
+		mainMenuScene_.Hide();
+		gameScene_.Hide();
+		gameStatus_ = GAMESTATUS.SettingsStatus;
 	}
 	
 	@Override
@@ -46,6 +57,9 @@ public class MainState extends Scene {
 		case GamePlayingStatus:	
 			gameScene_.onSceneTouchEvent(pSceneTouchEvent);
 			break;
+		case SettingsStatus:	
+			settingsScene_.onSceneTouchEvent(pSceneTouchEvent);
+			break;
 		default:
 			break;
 		}
@@ -57,7 +71,8 @@ public class MainState extends Scene {
 	enum GAMESTATUS{
 		MainMenuStatus,
 		SelectLevelsStatus,
-		GamePlayingStatus;
+		GamePlayingStatus,
+		SettingsStatus;
 	}
 
 
@@ -68,6 +83,9 @@ public class MainState extends Scene {
 			PyatnashkiActivity.main_.onDestroy();
 			break;
 		case GamePlayingStatus:	
+			ShowMainMenu();
+			break;
+		case SettingsStatus:	
 			ShowMainMenu();
 			break;
 		default:
