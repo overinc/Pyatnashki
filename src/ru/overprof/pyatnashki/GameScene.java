@@ -17,7 +17,7 @@ public class GameScene extends Scene {
 	
 	public static final int COUNTER = 4;
 	public static final Validate LeftUpperAreaPoint = new Validate();
-	public static final float Multiplexor = (float) 2;
+	public static final float Multiplexor = (float) 1.5;
 	public static final int WidthPlitkaWithDistanse = (int) (PyatnashkiActivity.mYaTextureRegion.getWidth() * Multiplexor + 10);
 	
 	
@@ -28,7 +28,7 @@ public class GameScene extends Scene {
 
 		this.setBackground(new ColorBackground(0.01023f, 0.4867f, 0.2170f));		
 		
-		final ChangeableText cisla = new ChangeableText(500, 50, PyatnashkiActivity.mFont, "", 50);
+		final ChangeableText cisla = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 65, PyatnashkiActivity.mFont, "", 50);
 		final ChangeableText time = new ChangeableText(500, 150, PyatnashkiActivity.mFont, "", 50);
 		
 		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2;
@@ -69,13 +69,14 @@ public class GameScene extends Scene {
 								float touchCoord = pSceneTouchEvent.getY() - this.getHeight() / 2;
 								if (this.positionY < val.y) { // Смещение вниз
 									extremumCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse + extremumRatio;
-									if (touchCoord > startCoord && touchCoord < extremumCoord) {
-										this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);								
-									}
+									if (pSceneTouchEvent.isActionMove()) 
+										if (touchCoord >= startCoord && touchCoord <= startCoord + WidthPlitkaWithDistanse) {
+											this.setPosition(this.getX(), touchCoord);								
+										}
 									if (pSceneTouchEvent.isActionUp()) {
-										if (touchCoord > startCoord && touchCoord < extremumCoord)
+										if (/*touchCoord > startCoord && */touchCoord < extremumCoord)
 											this.setPosition(this.getX(), startCoord);
-										if (touchCoord >= extremumCoord) {
+										else /*if (touchCoord >= extremumCoord) */{
 											this.setPosition(this.getX(), LeftUpperAreaPoint.y + val.y * WidthPlitkaWithDistanse);
 											this.positionY = val.y;
 											this.renewRightPos();
@@ -88,12 +89,13 @@ public class GameScene extends Scene {
 									return true;
 								} else { // Смещение вверх
 									extremumCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse - extremumRatio;
-									if (touchCoord < startCoord && touchCoord > extremumCoord)
-										this.setPosition(this.getX(), pSceneTouchEvent.getY() - this.getHeight() / 2);
+									if (pSceneTouchEvent.isActionMove())
+										if (touchCoord < startCoord && touchCoord > startCoord - WidthPlitkaWithDistanse)
+											this.setPosition(this.getX(), touchCoord);
 									if (pSceneTouchEvent.isActionUp()) {
-										if (touchCoord < startCoord && touchCoord > extremumCoord)
+										if (/*touchCoord < startCoord && */touchCoord > extremumCoord)
 											this.setPosition(this.getX(), startCoord);
-										if (touchCoord <= extremumCoord) {
+										else/* if (touchCoord <= extremumCoord) */{
 											this.setPosition(this.getX(), LeftUpperAreaPoint.y + val.y * WidthPlitkaWithDistanse);
 											this.positionY = val.y;
 											this.renewRightPos();
@@ -112,13 +114,13 @@ public class GameScene extends Scene {
 								if (this.positionX < val.x) { // Смещение вправо
 									extremumCoord = LeftUpperAreaPoint.x + this.positionX * WidthPlitkaWithDistanse + extremumRatio;
 									if (pSceneTouchEvent.isActionMove()) {
-										if (touchCoord > startCoord && touchCoord < startCoord + WidthPlitkaWithDistanse)
+										if (touchCoord >= startCoord && touchCoord <= startCoord + WidthPlitkaWithDistanse)
 											this.setPosition(touchCoord, this.getY());
 									}
 									if (pSceneTouchEvent.isActionUp()) {
-										if (touchCoord > startCoord && touchCoord < extremumCoord)
+										if (/*touchCoord > startCoord && */touchCoord < extremumCoord)
 											this.setPosition(startCoord, this.getY());
-										else if (touchCoord >= extremumCoord) {
+										else /*if (touchCoord >= extremumCoord) */{
 											this.setPosition(startCoord + WidthPlitkaWithDistanse, this.getY());
 											this.positionX = val.x;
 											this.renewRightPos();
@@ -136,9 +138,9 @@ public class GameScene extends Scene {
 											this.setPosition(touchCoord, this.getY());
 									}
 									if (pSceneTouchEvent.isActionUp()) {
-										if (touchCoord < startCoord && touchCoord > extremumCoord)
+										if (/*touchCoord < startCoord && */touchCoord > extremumCoord)
 											this.setPosition(startCoord, this.getY());
-										else if (touchCoord <= extremumCoord) {
+										else /*if (touchCoord <= extremumCoord)*/ {
 											this.setPosition(startCoord - WidthPlitkaWithDistanse, this.getY());
 											this.positionX = val.x;
 											this.renewRightPos();
@@ -183,7 +185,7 @@ public class GameScene extends Scene {
 			this.registerTouchArea(setOfTiles[i]);
 		}	
 		
-		final Sprite button = new Sprite(400, 50, PyatnashkiActivity.mAlexeyTextureRegion)
+		final Sprite button = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 0, PyatnashkiActivity.mAlexeyTextureRegion)
 		{
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {				
@@ -230,7 +232,7 @@ public class GameScene extends Scene {
 		this.registerTouchArea(button);
 		this.setTouchAreaBindingEnabled(true);
 		
-		Rectangle backItem = new Rectangle(50, 450, 200, 50)
+		Rectangle backItem = new Rectangle(PyatnashkiActivity.CAMERA_WIDTH / 2 - 100, PyatnashkiActivity.CAMERA_HEIGHT - 100, 200, 50)
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {

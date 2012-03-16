@@ -43,7 +43,7 @@ public class Plitka extends Sprite{
 		
 		String s;
 		s = String.format("%01d",id);		
-		number = new Text(0,0,pFont,s);
+		number = new Text(12,10,pFont,s);
 		this.attachChild(number);
 		
 		int x;
