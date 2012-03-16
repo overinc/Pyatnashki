@@ -57,7 +57,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture menuFontTexture;
 	public static Font menuFont;
 	
-	public static Boolean REALITY = true;
+	
 	
 	@Override
 	public Engine onLoadEngine() {
@@ -81,7 +81,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		this.mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
 		menuFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 32, true, Color.RED);
+		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 50, true, Color.RED);
 		
 		this.mEngine.getTextureManager().loadTexture(this.mFontTexture);
 		this.mEngine.getFontManager().loadFont(this.mFont);

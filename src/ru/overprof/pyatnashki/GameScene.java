@@ -20,6 +20,7 @@ public class GameScene extends Scene {
 	public static final float Multiplexor = (float) 1.5;
 	public static final int WidthPlitkaWithDistanse = (int) (PyatnashkiActivity.mYaTextureRegion.getWidth() * Multiplexor + 10);
 	
+	public static Boolean REALITY = true;
 	
 	int steps = 0;
 	
@@ -61,7 +62,7 @@ public class GameScene extends Scene {
 				public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 					Validate val = IsEmptyNear(setOfTiles, this.positionX, this.positionY);							
 					if (val.is) {
-						if (PyatnashkiActivity.REALITY) { // Плавное перемещение
+						if (REALITY) { // Плавное перемещение
 							float extremumRatio = 3 * WidthPlitkaWithDistanse / 5;
 							if (val.x == this.positionX) { // Вертикальное смещение
 								float startCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse;
