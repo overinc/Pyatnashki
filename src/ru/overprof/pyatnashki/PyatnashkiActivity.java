@@ -25,6 +25,8 @@ import org.anddev.andengine.util.HorizontalAlign;
 
 import android.R.anim;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -54,7 +56,15 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture mFontTexture;
 	public static Font mFont;
 	
-	public static Boolean REALITY = true;
+	private Texture menuFontTexture;
+	public static Font menuFont;
+	
+	public static final String APP_PREFERENSES = "settings";
+	public static final String PREF_TYPE_GAME = "type";
+	public static final String PREF_HELP_GAME = "help";
+	public static final String APP_RECORDS = "record";
+	
+	public static SharedPreferences mSettings;
 	
 	@Override
 	public Engine onLoadEngine() {
@@ -77,9 +87,19 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		
 		this.mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
-
+		menuFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 50, true, Color.RED);
+		
 		this.mEngine.getTextureManager().loadTexture(this.mFontTexture);
 		this.mEngine.getFontManager().loadFont(this.mFont);
+		this.mEngine.getTextureManager().loadTexture(this.menuFontTexture);
+		this.mEngine.getFontManager().loadFont(this.menuFont);
+		
+		mSettings = getSharedPreferences(APP_PREFERENSES, Context.MODE_PRIVATE);
+		if (mSettings.contains(PREF_TYPE_GAME))
+			GameScene.REALITY = mSettings.getBoolean(PREF_TYPE_GAME, true);
+		else
+			GameScene.REALITY = true;
 	}
 	
 	@Override
