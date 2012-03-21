@@ -20,7 +20,7 @@ public class GameScene extends Scene {
 	public static final float Multiplexor = (float) 1.5;
 	public static final int WidthPlitkaWithDistanse = (int) (PyatnashkiActivity.mYaTextureRegion.getWidth() * Multiplexor + 10);
 	
-	public static Boolean REALITY = true;
+	public static Boolean REALITY;
 	
 	int steps = 0;
 	

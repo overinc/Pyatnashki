@@ -85,7 +85,8 @@ public class MainState extends Scene {
 		case GamePlayingStatus:	
 			ShowMainMenu();
 			break;
-		case SettingsStatus:	
+		case SettingsStatus:
+			settingsScene_.SaveSettings();
 			ShowMainMenu();
 			break;
 		default:

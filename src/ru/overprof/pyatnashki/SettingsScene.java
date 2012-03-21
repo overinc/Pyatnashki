@@ -7,6 +7,8 @@ import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.input.touch.TouchEvent;
 
+import android.content.SharedPreferences.Editor;
+
 public class SettingsScene extends Scene {
 
 	public SettingsScene(int pLayerCount) {
@@ -17,20 +19,25 @@ public class SettingsScene extends Scene {
 		final String settingsItem1Text1 = "Реалистичные пятнашки";
 		final String settingsItem1Text2 = "Быстрые пятнашки";
 		
-		final ChangeableText changeableTextControl1 = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, settingsItem1Text1);
+		String settingsItem1Text;
+		if (GameScene.REALITY)
+			settingsItem1Text = settingsItem1Text1;
+		else
+			settingsItem1Text = settingsItem1Text2;
+		final ChangeableText changeableTextControl1 = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, settingsItem1Text);
 		Rectangle settingsItem1 = new Rectangle(0, 50, changeableTextControl1.getWidth(), changeableTextControl1.getHeight()){
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				if (pSceneTouchEvent.isActionDown()) {
-					if (PyatnashkiActivity.mainState_.gameScene_.REALITY) {
+					if (GameScene.REALITY/*PyatnashkiActivity.mainState_.gameScene_.REALITY*/) {
 						changeableTextControl1.setText(settingsItem1Text2);
 						this.setWidth(changeableTextControl1.getWidth());
-						PyatnashkiActivity.mainState_.gameScene_.REALITY = false;
+						GameScene.REALITY = false;
 					}
 					else {
 						changeableTextControl1.setText(settingsItem1Text1);
 						this.setWidth(changeableTextControl1.getWidth());
-						PyatnashkiActivity.mainState_.gameScene_.REALITY = true;
+						GameScene.REALITY = true;
 					}
 				}
 				return true;
@@ -57,6 +64,13 @@ public class SettingsScene extends Scene {
 	public void Hide() {		
 		setVisible(false);
 		setIgnoreUpdate(true);
+	}
+	
+	public void SaveSettings()
+	{
+		Editor editor = PyatnashkiActivity.mSettings.edit();
+		editor.putBoolean(PyatnashkiActivity.PREF_TYPE_GAME, GameScene.REALITY);
+		editor.commit();
 	}
 
 }
