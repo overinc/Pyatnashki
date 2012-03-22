@@ -12,17 +12,21 @@ import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.input.touch.TouchEvent;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 public class GameScene extends Scene {
 	
 	public static final int COUNTER = 4;
 	public static final Validate LeftUpperAreaPoint = new Validate();
 	public static final float Multiplexor = (float) 1.5;
-	public static final int WidthPlitkaWithDistanse = (int) (PyatnashkiActivity.mYaTextureRegion.getWidth() * Multiplexor + 10);
+	public static final int WidthPlitkaWithDistanse = (int) (PyatnashkiActivity.mYaTextureRegion.getWidth() / 2 * Multiplexor + 10);
 	
 	public static Boolean REALITY;
+	public static Boolean HELPING;
 	
 	int steps = 0;
+	
+	public static final Plitka[] setOfTiles = new Plitka[COUNTER*COUNTER-1];
 	
 	public GameScene(int pLayerCount) {
 		super(pLayerCount);		
@@ -32,15 +36,15 @@ public class GameScene extends Scene {
 		final ChangeableText cisla = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 65, PyatnashkiActivity.mFont, "", 50);
 		final ChangeableText time = new ChangeableText(500, 150, PyatnashkiActivity.mFont, "", 50);
 		
-		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2;
-		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2;
+		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
+		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
 		
 		int startRnd = 0;
 		boolean[] rndMas = new boolean[15];
 		
 		Validate startPos;
 				
-		final Plitka[] setOfTiles = new Plitka[COUNTER*COUNTER-1];
+		
 				
 		for (int i = 0; i < COUNTER*COUNTER-1; i++){				
 			Random r = new Random();
@@ -55,9 +59,9 @@ public class GameScene extends Scene {
 			}
 			startPos = indexToPos(startRnd);
 			
-			final boolean touch = true;
+			TiledTextureRegion plitkaTeTextureRegion = PyatnashkiActivity.mYaTextureRegion.clone();			
 			 
-			setOfTiles[i] = new Plitka( startPos.x, startPos.y, PyatnashkiActivity.mYaTextureRegion, i + 1, PyatnashkiActivity.mFont){		
+			setOfTiles[i] = new Plitka( startPos.x, startPos.y, plitkaTeTextureRegion, i + 1, PyatnashkiActivity.mFont){		
 				@Override
 				public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 					Validate val = IsEmptyNear(setOfTiles, this.positionX, this.positionY);							
@@ -233,7 +237,7 @@ public class GameScene extends Scene {
 		this.registerTouchArea(button);
 		this.setTouchAreaBindingEnabled(true);
 		
-		Rectangle backItem = new Rectangle(PyatnashkiActivity.CAMERA_WIDTH / 2 - 100, PyatnashkiActivity.CAMERA_HEIGHT - 100, 200, 50)
+		Rectangle backItem = new Rectangle(PyatnashkiActivity.CAMERA_WIDTH - 200, PyatnashkiActivity.CAMERA_HEIGHT / 2 - 25, 200, 50)
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {

@@ -17,13 +17,15 @@ public class SettingsScene extends Scene {
 		this.setBackground(new ColorBackground(0.4942f, 0.4987f, 0.5555f));
 		
 		final String settingsItem1Text1 = "Реалистичные пятнашки";
-		final String settingsItem1Text2 = "Быстрые пятнашки";
+		final String settingsItem1Text2 = "Быстрые пятнашки";		
 		
 		String settingsItem1Text;
+		
 		if (GameScene.REALITY)
 			settingsItem1Text = settingsItem1Text1;
 		else
 			settingsItem1Text = settingsItem1Text2;
+		
 		final ChangeableText changeableTextControl1 = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, settingsItem1Text);
 		Rectangle settingsItem1 = new Rectangle(0, 50, changeableTextControl1.getWidth(), changeableTextControl1.getHeight()){
 			@Override
@@ -47,11 +49,39 @@ public class SettingsScene extends Scene {
 		settingsItem1.attachChild(changeableTextControl1);
 		
 		this.attachChild(settingsItem1);
-		this.registerTouchArea(settingsItem1);
+		this.registerTouchArea(settingsItem1);		
 		
-		String s = "Подсказывать позиции";
-		Text settingsItem2 = new Text(0, 200, PyatnashkiActivity.menuFont, s);
+		final String settingsItem2Text1 = "Подсказывать позиции";
+		final String settingsItem2Text2 = "Без подсказок";
+		String settingsItem2Text;
+		if (GameScene.HELPING)
+			settingsItem2Text = settingsItem2Text1;
+		else
+			settingsItem2Text = settingsItem2Text2;
+		final ChangeableText changeableTextControl2 = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, settingsItem2Text);
+		Rectangle settingsItem2 = new Rectangle(0, 150, changeableTextControl2.getWidth(), changeableTextControl2.getHeight()){
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				if (pSceneTouchEvent.isActionDown()) {
+					if (GameScene.HELPING) {
+						changeableTextControl2.setText(settingsItem2Text2);
+						this.setWidth(changeableTextControl2.getWidth());
+						GameScene.HELPING = false;
+					}
+					else {
+						changeableTextControl2.setText(settingsItem2Text1);
+						this.setWidth(changeableTextControl2.getWidth());
+						GameScene.HELPING = true;
+					}
+				}
+				return true;
+			}
+		};
+		settingsItem2.setColor(20, 100, 200);
+		settingsItem2.attachChild(changeableTextControl2);
+		
 		this.attachChild(settingsItem2);
+		this.registerTouchArea(settingsItem2);
 		
 		
 	}
@@ -70,6 +100,9 @@ public class SettingsScene extends Scene {
 	{
 		Editor editor = PyatnashkiActivity.mSettings.edit();
 		editor.putBoolean(PyatnashkiActivity.PREF_TYPE_GAME, GameScene.REALITY);
+		editor.putBoolean(PyatnashkiActivity.PREF_HELP_GAME, GameScene.HELPING);
+		for (int i=0; i < GameScene.COUNTER * GameScene.COUNTER - 1; i++)
+			GameScene.setOfTiles[i].revalidateIt();
 		editor.commit();
 	}
 
