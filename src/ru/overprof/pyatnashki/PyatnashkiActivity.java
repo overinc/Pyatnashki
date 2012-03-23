@@ -54,6 +54,9 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture mAlexey;
 	public static TextureRegion mAlexeyTextureRegion;
 	
+	private Texture mRestartTexture;
+	public static TextureRegion mRestartTextureRegion;
+	
 	private Texture mFontTexture;
 	public static Font mFont;
 	
@@ -83,9 +86,13 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		
 		this.mAlexey = new Texture(64,64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.mAlexeyTextureRegion = TextureRegionFactory.createFromAsset(this.mAlexey, this, "gfx/leha64.jpg", 0, 0);
+		
+		this.mRestartTexture = new Texture(64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		this.mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/restart_button.png", 0 , 0);
 
 		this.mEngine.getTextureManager().loadTexture(this.mYa);
-		this.mEngine.getTextureManager().loadTexture(this.mAlexey);		
+		this.mEngine.getTextureManager().loadTexture(this.mAlexey);
+		this.mEngine.getTextureManager().loadTexture(this.mRestartTexture);
 		
 		this.mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);

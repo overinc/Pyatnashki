@@ -68,12 +68,14 @@ public class GameScene extends Scene {
 		this.setTouchAreaBindingEnabled(true);
 		
 				
-		Rectangle restartButton = new Rectangle(PyatnashkiActivity.CAMERA_WIDTH - 200, PyatnashkiActivity.CAMERA_HEIGHT / 2 - 25, 200, 50)
+		Sprite restartButton = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mRestartTextureRegion.getWidth() - 32, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mRestartTextureRegion.getHeight() / 2, PyatnashkiActivity.mRestartTextureRegion)
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				if (pSceneTouchEvent.isActionDown()) {
 					initAndOrSortSetOfTiles();
+					counterOfSteps.setText("");
+					steps = 0;
 					return true;
 				} else
 					return false;
@@ -82,7 +84,7 @@ public class GameScene extends Scene {
 			}
 		};
 		
-		restartButton.setColor(123, 35, 154);
+		restartButton.setScale((float)1.5);
 		attachChild(restartButton);
 		registerTouchArea(restartButton);
 	}
@@ -101,13 +103,14 @@ public class GameScene extends Scene {
 	
 	public void initAndOrSortSetOfTiles() {
 		
-	
+		boolean sort = false;
+		if (setOfTiles[0] != null) sort = true;
 		
 		int startRnd = 0;
 		boolean[] rndMas = new boolean[15];		
 		Validate startPos = null;
 				
-		for (int i = 0; i < COUNTER*COUNTER-1; i++){				
+		for (int i = 0; i < COUNTER*COUNTER-1; i++){			
 			Random r = new Random();
 			boolean b = false;
 			
@@ -120,7 +123,7 @@ public class GameScene extends Scene {
 			}
 			startPos = indexToPos(startRnd);
 			
-			if (setOfTiles[i] != null) { // сортируем готовый массив
+			if (sort) { // сортируем готовый массив
 				setOfTiles[i].setPosition(LeftUpperAreaPoint.x + startPos.x * WidthPlitkaWithDistanse, LeftUpperAreaPoint.y + startPos.y * WidthPlitkaWithDistanse);
 				setOfTiles[i].positionX = startPos.x;
 				setOfTiles[i].positionY = startPos.y;
@@ -259,6 +262,7 @@ public class GameScene extends Scene {
 				this.registerTouchArea(setOfTiles[i]);
 			}
 		}
+		
 	}
 	
 	public Validate IsEmptyNear(Plitka[] set, int posx, int posy){
