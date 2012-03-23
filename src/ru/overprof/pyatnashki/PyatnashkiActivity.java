@@ -19,6 +19,7 @@ import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.HorizontalAlign;
 
@@ -37,7 +38,7 @@ import android.widget.Toast;
 public class PyatnashkiActivity extends BaseGameActivity {
 	
 	public static final int CAMERA_WIDTH = 800;
-	public static final int CAMERA_HEIGHT = 700;	
+	public static final int CAMERA_HEIGHT = 480;	
 
 	public static PyatnashkiActivity main_;
 	
@@ -48,7 +49,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	boolean gameLoaded_ = false;
 	 
 	private Texture mYa;
-	public static TextureRegion mYaTextureRegion;
+	public static TiledTextureRegion mYaTextureRegion;
 	
 	private Texture mAlexey;
 	public static TextureRegion mAlexeyTextureRegion;
@@ -76,11 +77,12 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	
 	@Override
 	public void onLoadResources() {
-		this.mYa = new Texture(64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mYaTextureRegion = TextureRegionFactory.createFromAsset(this.mYa, this, "gfx/my64.png", 0, 0);
+		
+		this.mYa = new Texture(128, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		this.mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka.png", 0, 0, 2, 1);
 		
 		this.mAlexey = new Texture(64,64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mAlexeyTextureRegion = TextureRegionFactory.createFromAsset(this.mAlexey, this, "gfx/leha64.jpg",0,0);
+		this.mAlexeyTextureRegion = TextureRegionFactory.createFromAsset(this.mAlexey, this, "gfx/leha64.jpg", 0, 0);
 
 		this.mEngine.getTextureManager().loadTexture(this.mYa);
 		this.mEngine.getTextureManager().loadTexture(this.mAlexey);		
@@ -100,6 +102,10 @@ public class PyatnashkiActivity extends BaseGameActivity {
 			GameScene.REALITY = mSettings.getBoolean(PREF_TYPE_GAME, true);
 		else
 			GameScene.REALITY = true;
+		if (mSettings.contains(PREF_HELP_GAME))
+			GameScene.HELPING = mSettings.getBoolean(PREF_HELP_GAME, true);
+		else
+			GameScene.HELPING = true;
 	}
 	
 	@Override
