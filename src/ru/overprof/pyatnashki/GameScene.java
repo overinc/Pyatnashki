@@ -110,7 +110,7 @@ public class GameScene extends Scene {
 		boolean[] rndMas = new boolean[15];		
 		Validate startPos = null;
 				
-		for (int i = 0; i < COUNTER*COUNTER-1; i++){			
+		for (int i = 0; i < COUNTER*COUNTER-1; i++) {			
 			Random r = new Random();
 			boolean b = false;
 			
@@ -263,6 +263,26 @@ public class GameScene extends Scene {
 			}
 		}
 		
+		verifyTrueStartPos();		
+	}
+	
+	private void verifyTrueStartPos() {
+		int inversCount = 0;
+		
+		for (int i = 0; i < COUNTER * COUNTER - 1; i++)			
+			for (int j = 0; j < i; j++) {
+				int val1 = posToIndex(setOfTiles[j].positionX, setOfTiles[j].positionY);
+				int val2 = posToIndex(setOfTiles[i].positionX, setOfTiles[i].positionY);
+				if (val1 > val2)
+					inversCount++;
+			}
+		inversCount += 4;			
+		 
+		if (inversCount % 2 == 0)
+			return;
+		else
+			initAndOrSortSetOfTiles();
+		
 	}
 	
 	public Validate IsEmptyNear(Plitka[] set, int posx, int posy){
@@ -300,6 +320,11 @@ public class GameScene extends Scene {
 		pos.x = ind % COUNTER;
 		pos.y = (ind - (pos.x))/COUNTER;
 		return pos;
+	}	
+	
+	private	int posToIndex(int x, int y)
+	{	
+		return (y * COUNTER + x);
 	}	
 
 }
