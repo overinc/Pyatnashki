@@ -26,6 +26,7 @@ public class GameScene extends Scene {
 	public static Boolean HELPING;
 	
 	int steps = 0;
+	int seconds = 0;
 	
 	final ChangeableText counterOfSteps;
 	public static final Plitka[] setOfTiles = new Plitka[COUNTER*COUNTER-1];
@@ -35,7 +36,7 @@ public class GameScene extends Scene {
 
 		this.setBackground(new ColorBackground(0.01023f, 0.4867f, 0.2170f));		
 		
-		final ChangeableText time = new ChangeableText(500, 150, PyatnashkiActivity.mFont, "", 50);
+		final ChangeableText time = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 90, PyatnashkiActivity.mFont, "", 50);
 		
 		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
 		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;	
@@ -44,6 +45,20 @@ public class GameScene extends Scene {
 		this.getLastChild().attachChild(counterOfSteps);
 
 		initAndOrSortSetOfTiles();
+		
+		this.registerUpdateHandler(new TimerHandler(1, true, 
+				new ITimerCallback() {
+			
+			@Override
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				
+				time.setText(""+seconds);
+				seconds++;
+				
+			}
+		}));
+		
+		this.getLastChild().attachChild(time);
 		
 /*		this.registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback() {
 			@Override
