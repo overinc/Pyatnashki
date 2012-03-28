@@ -12,7 +12,7 @@ public class MainState extends Scene {
 	public static SettingsScene settingsScene_ = new SettingsScene(1);
 	
 	 //private static int gameState_;
-	static GAMESTATUS gameStatus_;
+	public static GAMESTATUS gameStatus_;
 	
 	public MainState(int pLayerCount) {
 		super(pLayerCount);
@@ -30,6 +30,7 @@ public class MainState extends Scene {
 		mainMenuScene_.Hide();
 		settingsScene_.Hide();
 		gameStatus_ = GAMESTATUS.GamePlayingStatus;
+		gameScene_.gamePaused_ = false;
 	}
 	
 	public static void ShowMainMenu() {
@@ -84,6 +85,8 @@ public class MainState extends Scene {
 			break;
 		case GamePlayingStatus:	
 			ShowMainMenu();
+			gameScene_.startActions_ = true;
+			gameScene_.gamePaused_ = true;
 			break;
 		case SettingsStatus:
 			settingsScene_.SaveSettings();
