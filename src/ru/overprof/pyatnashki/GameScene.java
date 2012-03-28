@@ -14,6 +14,8 @@ import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
+import ru.overprof.pyatnashki.MainState.GAMESTATUS;
+
 
 public class GameScene extends Scene {
 	
@@ -26,6 +28,9 @@ public class GameScene extends Scene {
 	public static Boolean HELPING;
 	
 	int steps = 0;
+	int seconds = 0;
+	public boolean startActions_ = false;
+	public boolean gamePaused_ = false;
 	
 	final ChangeableText counterOfSteps;
 	public static final Plitka[] setOfTiles = new Plitka[COUNTER*COUNTER-1];
@@ -35,34 +40,29 @@ public class GameScene extends Scene {
 
 		this.setBackground(new ColorBackground(0.01023f, 0.4867f, 0.2170f));		
 		
-		final ChangeableText time = new ChangeableText(500, 150, PyatnashkiActivity.mFont, "", 50);
+		final ChangeableText time = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 90, PyatnashkiActivity.mFont, "0", 50);
 		
 		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
 		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;	
 		
-		counterOfSteps = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 65, PyatnashkiActivity.mFont, "", 50);
+		counterOfSteps = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 65, PyatnashkiActivity.mFont, "0", 50);
 		this.getLastChild().attachChild(counterOfSteps);
 
 		initAndOrSortSetOfTiles();
 		
-/*		this.registerUpdateHandler(new TimerHandler(1 / 20.0f, true, new ITimerCallback() {
+		this.registerUpdateHandler(new TimerHandler(1, true, 
+				new ITimerCallback() {
+			
 			@Override
-			public void onTimePassed(final TimerHandler pTimerHandler) {
-				time.setText("Seconds elapsed: " + PyatnashkiActivity.mEngine.getSecondsElapsedTotal());
+			public void onTimePassed(TimerHandler pTimerHandler) {
+				
+				if (MainState.gameStatus_ == GAMESTATUS.GamePlayingStatus && startActions_ && !gamePaused_) {
+					time.setText(""+seconds);
+					seconds++;
+				}
+				
 			}
-		}));*/
-		
-		/*Timer t = new Timer();
-		t.*/
-		
-		
-		/*this.registerUpdateHandler(new TimerHandler(0.02f, true, new ITimerCallback() {
-		        @Override
-		        public void onTimePassed(final TimerHandler pTimerHandler) {	        	
-		        	time.setText("" + pTimerHandler.getTimerSecondsElapsed());
-		        }
-		}));*/
-		
+		}));
 		
 		this.getLastChild().attachChild(time);
 		this.setTouchAreaBindingEnabled(true);
@@ -74,8 +74,11 @@ public class GameScene extends Scene {
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
 				if (pSceneTouchEvent.isActionDown()) {
 					initAndOrSortSetOfTiles();
-					counterOfSteps.setText("");
+					counterOfSteps.setText("0");
 					steps = 0;
+					time.setText("0");
+					seconds = 0;
+					startActions_ = false;
 					return true;
 				} else
 					return false;
@@ -136,6 +139,8 @@ public class GameScene extends Scene {
 				setOfTiles[i] = new Plitka( startPos.x, startPos.y, plitkaTextureRegion, i + 1, PyatnashkiActivity.mFont){		
 					@Override
 					public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+						if (!startActions_)
+							startActions_ = true;
 						Validate val = IsEmptyNear(setOfTiles, this.positionX, this.positionY);							
 						if (val.is) {
 							if (REALITY) { // Плавное перемещение
