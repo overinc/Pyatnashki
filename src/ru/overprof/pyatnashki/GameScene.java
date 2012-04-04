@@ -151,10 +151,11 @@ public class GameScene extends Scene {
 									float touchCoord = pSceneTouchEvent.getY() - this.getHeight() / 2;
 									if (this.positionY < val.y) { // Смещение вниз
 										extremumCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse + extremumRatio;
-										if (pSceneTouchEvent.isActionMove()) 
+										if (pSceneTouchEvent.isActionMove()) {
 											if (touchCoord >= startCoord && touchCoord <= startCoord + WidthPlitkaWithDistanse) {
 												this.setPosition(this.getX(), touchCoord);								
 											}
+										}
 										if (pSceneTouchEvent.isActionUp()) {
 											if (!startActions_)
 												startActions_ = true;
@@ -170,13 +171,13 @@ public class GameScene extends Scene {
 												counterOfSteps.setText(s);
 												CheckWin();
 											}
-										}
-										return true;
+										}										
 									} else { // Смещение вверх
 										extremumCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse - extremumRatio;
-										if (pSceneTouchEvent.isActionMove())
+										if (pSceneTouchEvent.isActionMove()) {
 											if (touchCoord < startCoord && touchCoord > startCoord - WidthPlitkaWithDistanse)
 												this.setPosition(this.getX(), touchCoord);
+										}
 										if (pSceneTouchEvent.isActionUp()) {
 											if (!startActions_)
 												startActions_ = true;
@@ -263,11 +264,11 @@ public class GameScene extends Scene {
 										counterOfSteps.setText(s);
 										CheckWin();
 									}
-									return true;
 								}
-							}						
+							}	
+							return true;
 						}
-						return true;
+						return false;
 					}
 
 				};
