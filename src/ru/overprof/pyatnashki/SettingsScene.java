@@ -101,9 +101,10 @@ public class SettingsScene extends Scene {
 		Editor editor = PyatnashkiActivity.mSettings.edit();
 		editor.putBoolean(PyatnashkiActivity.PREF_TYPE_GAME, GameScene.REALITY);
 		editor.putBoolean(PyatnashkiActivity.PREF_HELP_GAME, GameScene.HELPING);
+		editor.commit();
 		for (int i=0; i < GameScene.COUNTER * GameScene.COUNTER - 1; i++)
 			GameScene.setOfTiles[i].revalidateIt();
-		editor.commit();
+		
 	}
 
 }
