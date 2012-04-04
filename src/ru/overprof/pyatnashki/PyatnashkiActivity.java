@@ -66,7 +66,8 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	public static final String APP_PREFERENSES = "settings";
 	public static final String PREF_TYPE_GAME = "type";
 	public static final String PREF_HELP_GAME = "help";
-	public static final String APP_RECORDS = "record";
+	public static final String APP_RECORDS_STEPS = "recordsteps";
+	public static final String APP_RECORDS_TIME = "recordseconds";
 	
 	public static SharedPreferences mSettings;
 	
@@ -113,6 +114,14 @@ public class PyatnashkiActivity extends BaseGameActivity {
 			GameScene.HELPING = mSettings.getBoolean(PREF_HELP_GAME, true);
 		else
 			GameScene.HELPING = true;
+		if (mSettings.contains(APP_RECORDS_STEPS))
+			RecordsScene.stepsRecordCount = mSettings.getInt(APP_RECORDS_STEPS, 0);
+		else
+			RecordsScene.stepsRecordCount = 0;
+		if (mSettings.contains(APP_RECORDS_TIME))
+			RecordsScene.timeRecordCount = mSettings.getInt(APP_RECORDS_TIME, 0);
+		else
+			RecordsScene.timeRecordCount = 0;
 	}
 	
 	@Override

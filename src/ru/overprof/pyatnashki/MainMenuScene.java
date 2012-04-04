@@ -50,7 +50,7 @@ public class MainMenuScene extends CameraScene {
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				
+				MainState.ShowRecords();
 				return false;
 			}
 		};

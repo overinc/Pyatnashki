@@ -14,6 +14,8 @@ import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
+import android.content.SharedPreferences.Editor;
+
 import ru.overprof.pyatnashki.MainState.GAMESTATUS;
 
 
@@ -138,11 +140,9 @@ public class GameScene extends Scene {
 
 				setOfTiles[i] = new Plitka( startPos.x, startPos.y, plitkaTextureRegion, i + 1, PyatnashkiActivity.mFont){		
 					@Override
-					public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-						if (!startActions_)
-							startActions_ = true;
+					public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {						
 						Validate val = IsEmptyNear(setOfTiles, this.positionX, this.positionY);							
-						if (val.is) {
+						if (val.is) {							
 							if (REALITY) { // Плавное перемещение
 								float extremumRatio = 3 * WidthPlitkaWithDistanse / 5;
 								if (val.x == this.positionX) { // Вертикальное смещение
@@ -156,6 +156,8 @@ public class GameScene extends Scene {
 												this.setPosition(this.getX(), touchCoord);								
 											}
 										if (pSceneTouchEvent.isActionUp()) {
+											if (!startActions_)
+												startActions_ = true;
 											if (/*touchCoord > startCoord && */touchCoord < extremumCoord)
 												this.setPosition(this.getX(), startCoord);
 											else /*if (touchCoord >= extremumCoord) */{
@@ -166,6 +168,7 @@ public class GameScene extends Scene {
 												String s;
 												s = String.format("%01d",steps);
 												counterOfSteps.setText(s);
+												CheckWin();
 											}
 										}
 										return true;
@@ -175,6 +178,8 @@ public class GameScene extends Scene {
 											if (touchCoord < startCoord && touchCoord > startCoord - WidthPlitkaWithDistanse)
 												this.setPosition(this.getX(), touchCoord);
 										if (pSceneTouchEvent.isActionUp()) {
+											if (!startActions_)
+												startActions_ = true;
 											if (/*touchCoord < startCoord && */touchCoord > extremumCoord)
 												this.setPosition(this.getX(), startCoord);
 											else/* if (touchCoord <= extremumCoord) */{
@@ -185,6 +190,7 @@ public class GameScene extends Scene {
 												String s;
 												s = String.format("%01d",steps);
 												counterOfSteps.setText(s);
+												CheckWin();
 											}
 										}
 									}
@@ -200,6 +206,8 @@ public class GameScene extends Scene {
 												this.setPosition(touchCoord, this.getY());
 										}
 										if (pSceneTouchEvent.isActionUp()) {
+											if (!startActions_)
+												startActions_ = true;
 											if (/*touchCoord > startCoord && */touchCoord < extremumCoord)
 												this.setPosition(startCoord, this.getY());
 											else /*if (touchCoord >= extremumCoord) */{
@@ -210,6 +218,7 @@ public class GameScene extends Scene {
 												String s;
 												s = String.format("%01d",steps);
 												counterOfSteps.setText(s);
+												CheckWin();
 											}
 										}
 									}
@@ -220,6 +229,8 @@ public class GameScene extends Scene {
 												this.setPosition(touchCoord, this.getY());
 										}
 										if (pSceneTouchEvent.isActionUp()) {
+											if (!startActions_)
+												startActions_ = true;
 											if (/*touchCoord < startCoord && */touchCoord > extremumCoord)
 												this.setPosition(startCoord, this.getY());
 											else /*if (touchCoord <= extremumCoord)*/ {
@@ -230,6 +241,7 @@ public class GameScene extends Scene {
 												String s;
 												s = String.format("%01d",steps);
 												counterOfSteps.setText(s);
+												CheckWin();
 											}
 										}
 									}
@@ -238,21 +250,18 @@ public class GameScene extends Scene {
 							}
 							else { // Мгновенное перемещение
 								if (pSceneTouchEvent.isActionDown()){													
-									if (val.is){							
+									if (val.is){	
+										if (!startActions_)
+											startActions_ = true;
 										this.setPosition(LeftUpperAreaPoint.x + val.x * WidthPlitkaWithDistanse, LeftUpperAreaPoint.y + val.y * WidthPlitkaWithDistanse);
 										this.positionX = val.x;
 										this.positionY = val.y;
 										this.renewRightPos();
-										boolean win = true;
-										for (int i = 0; i < COUNTER * COUNTER - 1; i++)
-											if (!setOfTiles[i].isRightPos)
-												win = false;
 										steps++;
 										String s;
 										s = String.format("%01d",steps);
 										counterOfSteps.setText(s);
-										if (win)
-											counterOfSteps.setText("URAAAAAAAAAAAA");
+										CheckWin();
 									}
 									return true;
 								}
@@ -316,6 +325,30 @@ public class GameScene extends Scene {
 		else{
 			val.is = false;
 			return val;
+		}
+	}
+	
+	private void CheckWin() {
+		boolean win = true;
+		for (int i = 0; i < COUNTER * COUNTER - 1; i++)
+			if (!setOfTiles[i].isRightPos)
+				win = false;	
+		if (win) {
+			MainState.gameStatus_ = GAMESTATUS.MainMenuStatus;
+			startActions_ = false;
+			counterOfSteps.setText("URAAAAAAAAAAAA");
+			
+			Editor editor = PyatnashkiActivity.mSettings.edit();
+			if (steps < RecordsScene.stepsRecordCount || RecordsScene.stepsRecordCount == 0) {
+				RecordsScene.stepsRecordCount = steps;
+				editor.putInt(PyatnashkiActivity.APP_RECORDS_STEPS, steps);	
+			}
+			if (seconds < RecordsScene.timeRecordCount || RecordsScene.timeRecordCount == 0) {
+				RecordsScene.timeRecordCount = seconds;
+				editor.putInt(PyatnashkiActivity.APP_RECORDS_TIME, seconds);
+			}
+			editor.commit();
+			MainState.ShowMainMenu();
 		}
 	}
 	
