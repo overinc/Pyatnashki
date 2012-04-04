@@ -29,6 +29,8 @@ public class GameScene extends Scene {
 	public static Boolean REALITY;
 	public static Boolean HELPING;
 	
+	int touchedMovingPlitkaNumber = -1;
+	
 	int steps = 0;
 	int seconds = 0;
 	public boolean startActions_ = false;
@@ -151,16 +153,26 @@ public class GameScene extends Scene {
 									float touchCoord = pSceneTouchEvent.getY() - this.getHeight() / 2;
 									if (this.positionY < val.y) { // Смещение вниз
 										extremumCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse + extremumRatio;
-										if (pSceneTouchEvent.isActionMove()) 
+										if (pSceneTouchEvent.isActionDown()) {
+											if (touchedMovingPlitkaNumber == -1)
+												touchedMovingPlitkaNumber = id;
+										}
+										if (touchedMovingPlitkaNumber != id) {
+											return false;
+										}
+										
+										if (pSceneTouchEvent.isActionMove()) {											
 											if (touchCoord >= startCoord && touchCoord <= startCoord + WidthPlitkaWithDistanse) {
 												this.setPosition(this.getX(), touchCoord);								
 											}
+										}										
 										if (pSceneTouchEvent.isActionUp()) {
+											touchedMovingPlitkaNumber = -1;
 											if (!startActions_)
 												startActions_ = true;
-											if (/*touchCoord > startCoord && */touchCoord < extremumCoord)
+											if (touchCoord < extremumCoord) 
 												this.setPosition(this.getX(), startCoord);
-											else /*if (touchCoord >= extremumCoord) */{
+											else {
 												this.setPosition(this.getX(), LeftUpperAreaPoint.y + val.y * WidthPlitkaWithDistanse);
 												this.positionY = val.y;
 												this.renewRightPos();
@@ -170,14 +182,22 @@ public class GameScene extends Scene {
 												counterOfSteps.setText(s);
 												CheckWin();
 											}
-										}
-										return true;
+										}										
 									} else { // Смещение вверх
 										extremumCoord = LeftUpperAreaPoint.y + this.positionY * WidthPlitkaWithDistanse - extremumRatio;
-										if (pSceneTouchEvent.isActionMove())
+										if (pSceneTouchEvent.isActionDown()) {
+											if (touchedMovingPlitkaNumber == -1)
+												touchedMovingPlitkaNumber = id;
+										}
+										if (touchedMovingPlitkaNumber != id) {
+											return false;
+										}
+										if (pSceneTouchEvent.isActionMove()) {
 											if (touchCoord < startCoord && touchCoord > startCoord - WidthPlitkaWithDistanse)
 												this.setPosition(this.getX(), touchCoord);
+										}
 										if (pSceneTouchEvent.isActionUp()) {
+											touchedMovingPlitkaNumber = -1;
 											if (!startActions_)
 												startActions_ = true;
 											if (/*touchCoord < startCoord && */touchCoord > extremumCoord)
@@ -201,11 +221,19 @@ public class GameScene extends Scene {
 									float touchCoord = pSceneTouchEvent.getX() - this.getWidth() / 2;
 									if (this.positionX < val.x) { // Смещение вправо
 										extremumCoord = LeftUpperAreaPoint.x + this.positionX * WidthPlitkaWithDistanse + extremumRatio;
+										if (pSceneTouchEvent.isActionDown()) {
+											if (touchedMovingPlitkaNumber == -1)
+												touchedMovingPlitkaNumber = id;
+										}
+										if (touchedMovingPlitkaNumber != id) {
+											return false;
+										}
 										if (pSceneTouchEvent.isActionMove()) {
 											if (touchCoord >= startCoord && touchCoord <= startCoord + WidthPlitkaWithDistanse)
 												this.setPosition(touchCoord, this.getY());
 										}
 										if (pSceneTouchEvent.isActionUp()) {
+											touchedMovingPlitkaNumber = -1;
 											if (!startActions_)
 												startActions_ = true;
 											if (/*touchCoord > startCoord && */touchCoord < extremumCoord)
@@ -224,11 +252,19 @@ public class GameScene extends Scene {
 									}
 									else { // Смещение влево
 										extremumCoord = LeftUpperAreaPoint.x + this.positionX * WidthPlitkaWithDistanse - extremumRatio;
+										if (pSceneTouchEvent.isActionDown()) {
+											if (touchedMovingPlitkaNumber == -1)
+												touchedMovingPlitkaNumber = id;
+										}
+										if (touchedMovingPlitkaNumber != id) {
+											return false;
+										}
 										if (pSceneTouchEvent.isActionMove()) {
 											if (touchCoord < startCoord && touchCoord > startCoord - WidthPlitkaWithDistanse)
 												this.setPosition(touchCoord, this.getY());
 										}
 										if (pSceneTouchEvent.isActionUp()) {
+											touchedMovingPlitkaNumber = -1;
 											if (!startActions_)
 												startActions_ = true;
 											if (/*touchCoord < startCoord && */touchCoord > extremumCoord)
@@ -263,11 +299,11 @@ public class GameScene extends Scene {
 										counterOfSteps.setText(s);
 										CheckWin();
 									}
-									return true;
 								}
-							}						
+							}	
+							return true;
 						}
-						return true;
+						return false;
 					}
 
 				};
