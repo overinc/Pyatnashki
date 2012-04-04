@@ -23,7 +23,7 @@ public class Plitka extends AnimatedSprite {
 	private final static Validate LeftUpperAreaPoint = GameScene.LeftUpperAreaPoint;
 	public static final int WidthPlitkaWithDistanse = GameScene.WidthPlitkaWithDistanse;
 	
-	private short id;
+	protected short id;
 	public boolean isRightPos;
 	public int positionX;
 	public int positionY;
