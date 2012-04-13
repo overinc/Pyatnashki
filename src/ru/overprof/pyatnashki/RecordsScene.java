@@ -24,17 +24,17 @@ public class RecordsScene extends Scene {
 		
 		String stepsRecordString;
 		if (stepsRecordCount == 0)
-			stepsRecordString = "Ходы: ??";
+			stepsRecordString = PyatnashkiStrings.strSteps + ": ??";
 		else 
-			stepsRecordString = "Ходы: " + stepsRecordCount;
+			stepsRecordString = PyatnashkiStrings.strSteps + ": " + stepsRecordCount;
 		Text stepsRecordControl = new Text(0, 0, PyatnashkiActivity.mFont, stepsRecordString);
 		this.attachChild(stepsRecordControl);
 		
 		String timeRecordString;
 		if (timeRecordCount == 0)
-			timeRecordString = "Время: ??";
+			timeRecordString = PyatnashkiStrings.strTime + ": ??";
 		else
-			timeRecordString = "Время: " + timeRecordCount;		
+			timeRecordString = PyatnashkiStrings.strTime + ": " + timeRecordCount;		
 		Text timeRecordControl = new Text(400, 240, PyatnashkiActivity.mFont, timeRecordString);
 		this.attachChild(timeRecordControl);
 	}

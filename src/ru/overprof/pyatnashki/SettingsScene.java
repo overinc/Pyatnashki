@@ -16,8 +16,8 @@ public class SettingsScene extends Scene {
 		
 		this.setBackground(new ColorBackground(0.4942f, 0.4987f, 0.5555f));
 		
-		final String settingsItem1Text1 = "Реалистичные пятнашки";
-		final String settingsItem1Text2 = "Быстрые пятнашки";		
+		final String settingsItem1Text1 = PyatnashkiStrings.strRealistikPyatn;
+		final String settingsItem1Text2 = PyatnashkiStrings.strQuickPyatn;		
 		
 		String settingsItem1Text;
 		
@@ -51,8 +51,8 @@ public class SettingsScene extends Scene {
 		this.attachChild(settingsItem1);
 		this.registerTouchArea(settingsItem1);		
 		
-		final String settingsItem2Text1 = "Подсказывать позиции";
-		final String settingsItem2Text2 = "Без подсказок";
+		final String settingsItem2Text1 = PyatnashkiStrings.strShowHelpPosition;
+		final String settingsItem2Text2 = PyatnashkiStrings.strWithoutHelp;
 		String settingsItem2Text;
 		if (GameScene.HELPING)
 			settingsItem2Text = settingsItem2Text1;

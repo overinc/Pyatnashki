@@ -25,6 +25,7 @@ import org.anddev.andengine.util.HorizontalAlign;
 
 
 import android.R.anim;
+import android.R.string;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -62,6 +63,8 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	
 	private Texture menuFontTexture;
 	public static Font menuFont;
+	
+	String language_ = "en";
 	
 	public static final String APP_PREFERENSES = "settings";
 	public static final String PREF_TYPE_GAME = "type";
@@ -104,6 +107,8 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		this.mEngine.getFontManager().loadFont(this.mFont);
 		this.mEngine.getTextureManager().loadTexture(this.menuFontTexture);
 		this.mEngine.getFontManager().loadFont(this.menuFont);
+		
+		PyatnashkiStrings strings = new PyatnashkiStrings(language_);
 		
 		mSettings = getSharedPreferences(APP_PREFERENSES, Context.MODE_PRIVATE);
 		if (mSettings.contains(PREF_TYPE_GAME))

@@ -29,7 +29,7 @@ public class MainMenuScene extends CameraScene {
 			}
 		};
 
-		String s = "Играем";
+		String s = PyatnashkiStrings.strPlay;
 		Text gameText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
 		menuItem1.attachChild(gameText);
 		
@@ -42,7 +42,7 @@ public class MainMenuScene extends CameraScene {
 			}
 		};
 		
-		s = "Настроить";
+		s = PyatnashkiStrings.strSettings;
 		Text settingsText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
 		menuItem2.attachChild(settingsText);
 		
@@ -55,7 +55,7 @@ public class MainMenuScene extends CameraScene {
 			}
 		};
 		
-		s = "Рекорды";
+		s = PyatnashkiStrings.strRecords;
 		Text recorgsText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
 		menuItem3.attachChild(recorgsText);
 		
