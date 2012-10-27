@@ -9,6 +9,7 @@ import org.anddev.andengine.engine.handler.timer.TimerHandler;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
+import org.anddev.andengine.entity.scene.background.SpriteBackground;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.input.touch.TouchEvent;
@@ -43,7 +44,8 @@ public class GameScene extends Scene {
 	public GameScene(int pLayerCount) {
 		super(pLayerCount);		
 
-		this.setBackground(new ColorBackground(0.01023f, 0.4867f, 0.2170f));		
+		//this.setBackground(new ColorBackground(0.01023f, 0.4867f, 0.2170f));	
+		this.setBackground(new SpriteBackground(PyatnashkiActivity.mGameBackground));
 		
 		final ChangeableText time = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 90, PyatnashkiActivity.mFont, "0", 50);
 		
