@@ -3,6 +3,7 @@ package ru.overprof.pyatnashki;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.CameraScene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
+import org.anddev.andengine.entity.scene.background.SpriteBackground;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.font.Font;
@@ -18,7 +19,8 @@ public class MainMenuScene extends CameraScene {
 		super(pLayerCount, PyatnashkiActivity.mCamera);
 		
 		//setBackgroundEnabled(false);
-		this.setBackground(new ColorBackground(0.8698f, 0.7367f, 0.2830f));
+		//this.setBackground(new ColorBackground(0.8698f, 0.7367f, 0.2830f));
+		this.setBackground(new SpriteBackground(PyatnashkiActivity.mMenuBackground));
 		
 		Rectangle menuItem1 = new Rectangle(50, 50, 200, 50)
 		{

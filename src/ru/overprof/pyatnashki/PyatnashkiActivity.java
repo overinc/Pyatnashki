@@ -9,6 +9,7 @@ import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
+import org.anddev.andengine.entity.sprite.BaseSprite;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.entity.text.Text;
@@ -64,7 +65,15 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture menuFontTexture;
 	public static Font menuFont;
 	
-	String language_ = "en";
+	private Texture mGameBackgroundTexture;
+	private TextureRegion mGameBackgroundTextureRegion;
+	public static BaseSprite mGameBackground;
+	
+	private Texture mMenuBackgroundTexture;
+	private TextureRegion mMenuBackgroundTextureRegion;
+	public static BaseSprite mMenuBackground;
+	
+	String language_ = "ru";
 	
 	public static final String APP_PREFERENSES = "settings";
 	public static final String PREF_TYPE_GAME = "type";
@@ -86,7 +95,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	public void onLoadResources() {
 		
 		this.mYa = new Texture(128, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka.png", 0, 0, 2, 1);
+		this.mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka2.png", 0, 0, 2, 1);
 		
 		this.mAlexey = new Texture(64,64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.mAlexeyTextureRegion = TextureRegionFactory.createFromAsset(this.mAlexey, this, "gfx/leha64.jpg", 0, 0);
@@ -94,9 +103,19 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		this.mRestartTexture = new Texture(64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/restart_button.png", 0 , 0);
 
+		mGameBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mGameBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mGameBackgroundTexture, this, "gfx/Aurora_green.jpg", 0 , 0);
+		mGameBackground = new BaseSprite(0,0,800,480, mGameBackgroundTextureRegion) {};
+		
+		mMenuBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mMenuBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mMenuBackgroundTexture, this, "gfx/Aurora_blue.jpg", 0 , 0);
+		mMenuBackground = new BaseSprite(0,0,800,480, mMenuBackgroundTextureRegion) {};
+		
 		this.mEngine.getTextureManager().loadTexture(this.mYa);
 		this.mEngine.getTextureManager().loadTexture(this.mAlexey);
 		this.mEngine.getTextureManager().loadTexture(this.mRestartTexture);
+		this.mEngine.getTextureManager().loadTexture(mGameBackgroundTexture);
+		this.mEngine.getTextureManager().loadTexture(mMenuBackgroundTexture);
 		
 		this.mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
