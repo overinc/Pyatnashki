@@ -96,7 +96,7 @@ public class SettingsScene extends Scene {
 		setIgnoreUpdate(true);
 	}
 	
-	public void SaveSettings()
+	public static void SaveSettings()
 	{
 		Editor editor = PyatnashkiActivity.mSettings.edit();
 		editor.putBoolean(PyatnashkiActivity.PREF_TYPE_GAME, GameScene.REALITY);
