@@ -73,6 +73,9 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private TextureRegion mMenuBackgroundTextureRegion;
 	public static BaseSprite mMenuBackground;
 	
+	private Texture mCheckBoxTexture;
+	public static TiledTextureRegion mCheckBoxTextureRegion;
+	
 	String language_ = "ru";
 	
 	public static final String APP_PREFERENSES = "settings";
@@ -94,14 +97,14 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	@Override
 	public void onLoadResources() {
 		
-		this.mYa = new Texture(128, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka2.png", 0, 0, 2, 1);
+		mYa = new Texture(128, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka2.png", 0, 0, 2, 1);
 		
-		this.mAlexey = new Texture(64,64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mAlexeyTextureRegion = TextureRegionFactory.createFromAsset(this.mAlexey, this, "gfx/leha64.jpg", 0, 0);
+		mAlexey = new Texture(64,64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mAlexeyTextureRegion = TextureRegionFactory.createFromAsset(this.mAlexey, this, "gfx/leha64.jpg", 0, 0);
 		
-		this.mRestartTexture = new Texture(64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/restart_button.png", 0 , 0);
+		mRestartTexture = new Texture(64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/restart_button.png", 0 , 0);
 
 		mGameBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mGameBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mGameBackgroundTexture, this, "gfx/Aurora_green.jpg", 0 , 0);
@@ -109,18 +112,23 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		
 		mMenuBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mMenuBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mMenuBackgroundTexture, this, "gfx/Aurora_blue.jpg", 0 , 0);
-		mMenuBackground = new BaseSprite(0,0,800,480, mMenuBackgroundTextureRegion) {};
+		mMenuBackground = new BaseSprite(0,0,800,480, mMenuBackgroundTextureRegion) {};		
 		
-		this.mEngine.getTextureManager().loadTexture(this.mYa);
-		this.mEngine.getTextureManager().loadTexture(this.mAlexey);
-		this.mEngine.getTextureManager().loadTexture(this.mRestartTexture);
+		mCheckBoxTexture = new Texture(64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mCheckBoxTextureRegion = TextureRegionFactory.createTiledFromAsset(mCheckBoxTexture, this, "gfx/check_box.png", 0, 0, 2, 1);
+		
+		
+		this.mEngine.getTextureManager().loadTexture(mYa);
+		this.mEngine.getTextureManager().loadTexture(mAlexey);
+		this.mEngine.getTextureManager().loadTexture(mRestartTexture);
 		this.mEngine.getTextureManager().loadTexture(mGameBackgroundTexture);
-		this.mEngine.getTextureManager().loadTexture(mMenuBackgroundTexture);
+		this.mEngine.getTextureManager().loadTexture(mMenuBackgroundTexture);	
+		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);	
 		
 		this.mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
 		menuFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 50, true, Color.RED);
+		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 50, true, Color.YELLOW);
 		
 		this.mEngine.getTextureManager().loadTexture(this.mFontTexture);
 		this.mEngine.getFontManager().loadFont(this.mFont);
