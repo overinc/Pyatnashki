@@ -53,8 +53,8 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture mYa;
 	public static TiledTextureRegion mYaTextureRegion;
 	
-	private Texture mAlexey;
-	public static TextureRegion mAlexeyTextureRegion;
+	private Texture mWinTexture;
+	public static TextureRegion mWinTextureRegion;
 	
 	private Texture mRestartTexture;
 	public static TextureRegion mRestartTextureRegion;
@@ -88,7 +88,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	
 	@Override
 	public Engine onLoadEngine() {
-		Toast.makeText(this, "Пятнашки", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "Пятнашки", Toast.LENGTH_LONG).show();
 		main_ = this;
 		this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		return new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
@@ -100,8 +100,8 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		mYa = new Texture(128, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka2.png", 0, 0, 2, 1);
 		
-		mAlexey = new Texture(64,64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mAlexeyTextureRegion = TextureRegionFactory.createFromAsset(this.mAlexey, this, "gfx/leha64.jpg", 0, 0);
+		mWinTexture = new Texture(256, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mWinTextureRegion = TextureRegionFactory.createFromAsset(mWinTexture, this, "gfx/win_window.png", 0, 0);
 		
 		mRestartTexture = new Texture(64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/restart_button.png", 0 , 0);
@@ -116,17 +116,16 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		
 		mCheckBoxTexture = new Texture(64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mCheckBoxTextureRegion = TextureRegionFactory.createTiledFromAsset(mCheckBoxTexture, this, "gfx/check_box.png", 0, 0, 2, 1);
-		
-		
+				
 		this.mEngine.getTextureManager().loadTexture(mYa);
-		this.mEngine.getTextureManager().loadTexture(mAlexey);
+		this.mEngine.getTextureManager().loadTexture(mWinTexture);
 		this.mEngine.getTextureManager().loadTexture(mRestartTexture);
 		this.mEngine.getTextureManager().loadTexture(mGameBackgroundTexture);
 		this.mEngine.getTextureManager().loadTexture(mMenuBackgroundTexture);	
-		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);	
+		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);			
 		
-		this.mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
+		mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
 		menuFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 50, true, Color.YELLOW);
 		
