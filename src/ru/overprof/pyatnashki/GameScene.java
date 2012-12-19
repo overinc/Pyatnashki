@@ -34,12 +34,15 @@ public class GameScene extends Scene {
 	float extremumRatio = 1 * WidthPlitkaWithDistanse / 2;
 	
 	int steps = 0;
+	ChangeableText time;
 	int seconds = 0;
 	public boolean startActions_ = false;
 	public boolean gamePaused_ = false;
 	
 	final ChangeableText counterOfSteps;
 	public static final Plitka[] setOfTiles = new Plitka[COUNTER*COUNTER-1];
+	Sprite restartButton_;
+	Sprite winWindow_;
 	
 	public GameScene(int pLayerCount) {
 		super(pLayerCount);		
@@ -47,12 +50,12 @@ public class GameScene extends Scene {
 		//this.setBackground(new ColorBackground(0.01023f, 0.4867f, 0.2170f));	
 		this.setBackground(new SpriteBackground(PyatnashkiActivity.mGameBackground));
 		
-		final ChangeableText time = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 90, PyatnashkiActivity.mFont, "0", 50);
+		time = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-64, 90, PyatnashkiActivity.mFont, "0", 50);
 		
 		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
 		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;	
 		
-		counterOfSteps = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-PyatnashkiActivity.mAlexeyTextureRegion.getWidth(), 65, PyatnashkiActivity.mFont, "0", 50);
+		counterOfSteps = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-64, 65, PyatnashkiActivity.mFont, "0", 50);
 		this.getLastChild().attachChild(counterOfSteps);
 
 		initAndOrSortSetOfTiles();
@@ -75,7 +78,7 @@ public class GameScene extends Scene {
 		this.setTouchAreaBindingEnabled(true);
 		
 				
-		Sprite restartButton = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mRestartTextureRegion.getWidth() - 32, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mRestartTextureRegion.getHeight() / 2, PyatnashkiActivity.mRestartTextureRegion)
+		restartButton_ = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mRestartTextureRegion.getWidth() - 32, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mRestartTextureRegion.getHeight() / 2, PyatnashkiActivity.mRestartTextureRegion)
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -88,18 +91,36 @@ public class GameScene extends Scene {
 					startActions_ = false;
 					return true;
 				} else
-					return false;
-				//MainState.ShowMainMenu();
-				
+					return false;				
 			}
 		};
 		
-		restartButton.setScale((float)1.5);
-		attachChild(restartButton);
-		registerTouchArea(restartButton);
+		restartButton_.setScale((float)1.5);
+		attachChild(restartButton_);
+		registerTouchArea(restartButton_);		
+		
 	}
 	
 	public void Show() {
+		if (winWindow_ != null)
+		{			
+			unregisterTouchArea(winWindow_);
+			detachChild(winWindow_);			
+			winWindow_ = null;
+			
+			initAndOrSortSetOfTiles();
+			counterOfSteps.setText("0");
+			steps = 0;
+			time.setText("0");
+			seconds = 0;
+			startActions_ = false;
+			
+			for (int i = 0; i < COUNTER*COUNTER-1; i++)
+			{
+				registerTouchArea(setOfTiles[i]);
+			}
+			registerTouchArea(restartButton_);
+		}
 		
 		setVisible(true);
 		setIgnoreUpdate(false);
@@ -371,10 +392,10 @@ public class GameScene extends Scene {
 		for (int i = 0; i < COUNTER * COUNTER - 1; i++)
 			if (!setOfTiles[i].isRightPos)
 				win = false;	
-		if (win) {
-			MainState.gameStatus_ = GAMESTATUS.MainMenuStatus;
+		
+		if (win) {			
 			startActions_ = false;
-			counterOfSteps.setText("URAAAAAAAAAAAA");
+			//counterOfSteps.setText("URAAAAAAAAAAAA");
 			
 			Editor editor = PyatnashkiActivity.mSettings.edit();
 			if (steps < RecordsScene.stepsRecordCount || RecordsScene.stepsRecordCount == 0) {
@@ -386,7 +407,31 @@ public class GameScene extends Scene {
 				editor.putInt(PyatnashkiActivity.APP_RECORDS_TIME, seconds);
 			}
 			editor.commit();
-			MainState.ShowMainMenu();
+			
+			for (int i = 0; i < COUNTER*COUNTER-1; i++)
+			{
+				this.unregisterTouchArea(setOfTiles[i]);
+			}
+			this.unregisterTouchArea(restartButton_);
+			
+			winWindow_ = new Sprite(PyatnashkiActivity.CAMERA_WIDTH / 2 - PyatnashkiActivity.mWinTextureRegion.getWidth() / 2, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mWinTextureRegion.getHeight() / 2, PyatnashkiActivity.mWinTextureRegion)
+			{
+				@Override				
+				public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) 
+				{
+					if (pSceneTouchEvent.isActionDown()) {						
+						MainState.ShowMainMenu();
+						return true;
+					}
+					else {
+						return false;
+					}
+				}
+			};						
+
+			this.attachChild(winWindow_);
+			this.registerTouchArea(winWindow_);
+			
 		}
 	}
 	
