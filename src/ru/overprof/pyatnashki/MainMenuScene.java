@@ -17,10 +17,14 @@ import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import android.R.integer;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.NetworkInfo.DetailedState;
 
 public class MainMenuScene extends CameraScene {
 	
 	public static int bottomPanelHeight_ = 80;
+	
+	public ChangeableText stepsRecordControl_;
+	ChangeableText timeRecordControl_;
 	
 	public MainMenuScene(int pLayerCount) {		
 		super(pLayerCount, PyatnashkiActivity.mCamera);
@@ -61,29 +65,32 @@ public class MainMenuScene extends CameraScene {
 		bottomPanel.setColor(0, 0, 0, (float) 0.7);
 		attachChild(bottomPanel);
 		
-		s = "best";// of the best";
+		s = "best";
 		Text bestText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
 		bestText.setPosition(bottomPanel.getWidth() / 2 - bestText.getWidth() / 2 , bottomPanel.getHeight() / 2 - bestText.getHeight() / 2);
-		//attachChild(bestText);
 		bottomPanel.attachChild(bestText);
 		
-		String stepsRecordString;
+		/*String stepsRecordString;
 		if (RecordsScene.stepsRecordCount == 0)
 			stepsRecordString = PyatnashkiStrings.strSteps + ": ??";
 		else 
-			stepsRecordString = PyatnashkiStrings.strSteps + ": " + RecordsScene.stepsRecordCount;
-		Text stepsRecordControl = new Text(0, 0, PyatnashkiActivity.menuFont, stepsRecordString);
-		stepsRecordControl.setPosition(0, (bottomPanel.getHeight() - stepsRecordControl.getHeight()) / 2);
-		bottomPanel.attachChild(stepsRecordControl);
+			stepsRecordString = PyatnashkiStrings.strSteps + ": " + RecordsScene.stepsRecordCount;*/
+		stepsRecordControl_ = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, "", 20);
+		stepsRecordControl_.setPosition(0, (bottomPanel.getHeight() - stepsRecordControl_.getHeight()) / 2);		
+		/*bottomPanel.*/attachChild(stepsRecordControl_);
 		
-		String timeRecordString;
+		/*String timeRecordString;
 		if (RecordsScene.timeRecordCount == 0)
 			timeRecordString = PyatnashkiStrings.strTime + ": ??";
 		else
 			timeRecordString = PyatnashkiStrings.strTime + ": " + convertSecondsToTime(RecordsScene.timeRecordCount);		
-		Text timeRecordControl = new Text(0, 0, PyatnashkiActivity.menuFont, timeRecordString);
-		timeRecordControl.setPosition(bottomPanel.getWidth() - timeRecordControl.getWidth() - 10, (bottomPanel.getHeight() - timeRecordControl.getHeight()) / 2);
-		bottomPanel.attachChild(timeRecordControl);
+		*/
+		timeRecordControl_ = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, "", 20);
+		UpdateRecordsControls();
+		timeRecordControl_.setPosition(bottomPanel.getWidth() - timeRecordControl_.getWidth() - 10, (bottomPanel.getHeight() - timeRecordControl_.getHeight()) / 2);
+		/*bottomPanel.*/attachChild(timeRecordControl_);
+		
+		UpdateRecordsControls();
 		
 		
 		
@@ -183,6 +190,23 @@ public class MainMenuScene extends CameraScene {
 			s += "0";
 		s += Integer.toString(sec);
 		return s;
+	}
+	
+	public void UpdateRecordsControls() {
+		String stepsRecordString;
+		if (RecordsScene.stepsRecordCount == 0)
+			stepsRecordString = PyatnashkiStrings.strSteps + ": ??";
+		else 
+			stepsRecordString = PyatnashkiStrings.strSteps + ": " + Integer.toString(RecordsScene.stepsRecordCount);
+		
+		stepsRecordControl_.setText(stepsRecordString);
+		
+		String timeRecordString;
+		if (RecordsScene.timeRecordCount == 0)
+			timeRecordString = PyatnashkiStrings.strTime + ": ??";
+		else
+			timeRecordString = PyatnashkiStrings.strTime + ": " + convertSecondsToTime(RecordsScene.timeRecordCount);
+		timeRecordControl_.setText(timeRecordString);		
 	}
 
 }

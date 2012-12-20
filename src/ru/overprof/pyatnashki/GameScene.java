@@ -54,13 +54,18 @@ public class GameScene extends Scene {
 
 		// Ñ×ÅÒ×ÈÊÈ		
 		
-		Rectangle bottomPanelLeft = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, LeftUpperAreaPoint.x - 20, MainMenuScene.bottomPanelHeight_);
+		Rectangle bottomPanelLeft = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, LeftUpperAreaPoint.x - 25, MainMenuScene.bottomPanelHeight_);
 		bottomPanelLeft.setColor(0, 0, 0,(float) 0.7);
 		attachChild(bottomPanelLeft);
 		
-		Rectangle bottomPanelRight = new Rectangle(0/*LeftUpperAreaPoint.x + WidthPlitkaWithDistanse * 4 -3*/, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, 800/* PyatnashkiActivity.CAMERA_WIDTH - LeftUpperAreaPoint.x - WidthPlitkaWithDistanse * 4 - 3 */, MainMenuScene.bottomPanelHeight_);
+		Rectangle bottomPanelRight = new Rectangle(LeftUpperAreaPoint.x + WidthPlitkaWithDistanse * 4 - 18, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH - LeftUpperAreaPoint.x - WidthPlitkaWithDistanse * 4 - 18,  MainMenuScene.bottomPanelHeight_);
 		bottomPanelRight.setColor(0, 0, 0,(float) 0.7);
 		attachChild(bottomPanelRight);
+		
+		Rectangle bottomPanelCenter = new Rectangle(bottomPanelLeft.getWidth(), PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_ / 2 + 5, bottomPanelRight.getX() - bottomPanelLeft.getWidth(), MainMenuScene.bottomPanelHeight_ / 2 -5 );
+		bottomPanelCenter.setColor(0, 0, 0,(float) 0.7);
+		attachChild(bottomPanelCenter);
+		
 		
 		counterOfSteps = new ChangeableText(64, PyatnashkiActivity.CAMERA_HEIGHT - 50, PyatnashkiActivity.mFont, "0", 50);
 		attachChild(counterOfSteps);
@@ -72,7 +77,7 @@ public class GameScene extends Scene {
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {				
 				if (MainState.gameStatus_ == GAMESTATUS.GamePlayingStatus && startActions_ && !gamePaused_) {					
-					//time.setText(""+seconds);
+					
 					time.setText(MainMenuScene.convertSecondsToTime(seconds));
 					seconds++;
 				}				
@@ -416,7 +421,9 @@ public class GameScene extends Scene {
 				RecordsScene.timeRecordCount = seconds;
 				editor.putInt(PyatnashkiActivity.APP_RECORDS_TIME, seconds);
 			}
-			editor.commit();
+			editor.commit();			
+			
+			MainState.mainMenuScene_.UpdateRecordsControls();
 			
 			for (int i = 0; i < COUNTER*COUNTER-1; i++)
 			{
