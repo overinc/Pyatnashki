@@ -46,38 +46,48 @@ public class GameScene extends Scene {
 	
 	public GameScene(int pLayerCount) {
 		super(pLayerCount);		
-
-		//this.setBackground(new ColorBackground(0.01023f, 0.4867f, 0.2170f));	
+		
 		this.setBackground(new SpriteBackground(PyatnashkiActivity.mGameBackground));
 		
-		time = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-64, 90, PyatnashkiActivity.mFont, "0", 50);
-		
 		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
-		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;	
-		
-		counterOfSteps = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-64, 65, PyatnashkiActivity.mFont, "0", 50);
-		this.getLastChild().attachChild(counterOfSteps);
+		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
 
-		initAndOrSortSetOfTiles();
+		// —◊≈“◊» »		
+		
+		Rectangle bottomPanelLeft = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, LeftUpperAreaPoint.x - 20, MainMenuScene.bottomPanelHeight_);
+		bottomPanelLeft.setColor(0, 0, 0,(float) 0.7);
+		attachChild(bottomPanelLeft);
+		
+		Rectangle bottomPanelRight = new Rectangle(0/*LeftUpperAreaPoint.x + WidthPlitkaWithDistanse * 4 -3*/, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, 800/* PyatnashkiActivity.CAMERA_WIDTH - LeftUpperAreaPoint.x - WidthPlitkaWithDistanse * 4 - 3 */, MainMenuScene.bottomPanelHeight_);
+		bottomPanelRight.setColor(0, 0, 0,(float) 0.7);
+		attachChild(bottomPanelRight);
+		
+		counterOfSteps = new ChangeableText(64, PyatnashkiActivity.CAMERA_HEIGHT - 50, PyatnashkiActivity.mFont, "0", 50);
+		attachChild(counterOfSteps);
+
+		time = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH - 90, PyatnashkiActivity.CAMERA_HEIGHT - 50, PyatnashkiActivity.mFont, "00:00", 50);
 		
 		this.registerUpdateHandler(new TimerHandler(1, true, 
-				new ITimerCallback() {
-			
+				new ITimerCallback() {			
 			@Override
-			public void onTimePassed(TimerHandler pTimerHandler) {
-				
-				if (MainState.gameStatus_ == GAMESTATUS.GamePlayingStatus && startActions_ && !gamePaused_) {
-					time.setText(""+seconds);
+			public void onTimePassed(TimerHandler pTimerHandler) {				
+				if (MainState.gameStatus_ == GAMESTATUS.GamePlayingStatus && startActions_ && !gamePaused_) {					
+					//time.setText(""+seconds);
+					time.setText(MainMenuScene.convertSecondsToTime(seconds));
 					seconds++;
-				}
-				
+				}				
 			}
 		}));
 		
-		this.getLastChild().attachChild(time);
-		this.setTouchAreaBindingEnabled(true);
+		attachChild(time);
+		setTouchAreaBindingEnabled(true);
 		
-				
+		// »√–Œ¬Œ≈ œŒÀ≈
+		
+		initAndOrSortSetOfTiles();
+		
+		// –≈—“¿–“  ÕŒœ ¿
+		
 		restartButton_ = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mRestartTextureRegion.getWidth() - 32, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mRestartTextureRegion.getHeight() / 2, PyatnashkiActivity.mRestartTextureRegion)
 		{
 			@Override
@@ -86,7 +96,7 @@ public class GameScene extends Scene {
 					initAndOrSortSetOfTiles();
 					counterOfSteps.setText("0");
 					steps = 0;
-					time.setText("0");
+					time.setText("00:00");
 					seconds = 0;
 					startActions_ = false;
 					return true;
@@ -111,7 +121,7 @@ public class GameScene extends Scene {
 			initAndOrSortSetOfTiles();
 			counterOfSteps.setText("0");
 			steps = 0;
-			time.setText("0");
+			time.setText("00:00");
 			seconds = 0;
 			startActions_ = false;
 			
@@ -331,8 +341,8 @@ public class GameScene extends Scene {
 
 				};
 				setOfTiles[i].setScale(Multiplexor);
-				this.getLastChild().attachChild(setOfTiles[i]);
-				this.registerTouchArea(setOfTiles[i]);
+				attachChild(setOfTiles[i]);
+				registerTouchArea(setOfTiles[i]);
 			}
 		}
 		

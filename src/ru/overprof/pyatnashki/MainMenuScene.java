@@ -14,12 +14,13 @@ import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
+import android.R.integer;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
 public class MainMenuScene extends CameraScene {
 	
-	private int bottomPanelHeight_ = 80;
+	public static int bottomPanelHeight_ = 80;
 	
 	public MainMenuScene(int pLayerCount) {		
 		super(pLayerCount, PyatnashkiActivity.mCamera);
@@ -33,7 +34,10 @@ public class MainMenuScene extends CameraScene {
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				MainState.ShowGameScene();
+				if (pSceneTouchEvent.isActionDown()) {
+					MainState.ShowGameScene();
+					return true;
+				}
 				return false;
 			}
 		};
@@ -54,7 +58,7 @@ public class MainMenuScene extends CameraScene {
 		// ÐÅÊÎÐÄÛ
 
 		Rectangle bottomPanel = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH, bottomPanelHeight_);
-		bottomPanel.setColor(0, 0, 0, 153);
+		bottomPanel.setColor(0, 0, 0, (float) 0.7);
 		attachChild(bottomPanel);
 		
 		s = "best";// of the best";
@@ -76,7 +80,7 @@ public class MainMenuScene extends CameraScene {
 		if (RecordsScene.timeRecordCount == 0)
 			timeRecordString = PyatnashkiStrings.strTime + ": ??";
 		else
-			timeRecordString = PyatnashkiStrings.strTime + ": " + RecordsScene.timeRecordCount;		
+			timeRecordString = PyatnashkiStrings.strTime + ": " + convertSecondsToTime(RecordsScene.timeRecordCount);		
 		Text timeRecordControl = new Text(0, 0, PyatnashkiActivity.menuFont, timeRecordString);
 		timeRecordControl.setPosition(bottomPanel.getWidth() - timeRecordControl.getWidth() - 10, (bottomPanel.getHeight() - timeRecordControl.getHeight()) / 2);
 		bottomPanel.attachChild(timeRecordControl);
@@ -163,6 +167,22 @@ public class MainMenuScene extends CameraScene {
 		
 		setVisible(false);
 		setIgnoreUpdate(true);
+	}
+	
+	public static String convertSecondsToTime(int seconds) {
+		if (seconds >= 60 * 60)
+			return "Long(";
+		int sec = seconds % 60;
+		int min = seconds / 60;		
+		String s=""; 
+		if (min < 10)
+			s += "0";
+		s += Integer.toString(min);
+		s += ":";
+		if (sec < 10)
+			s += "0";
+		s += Integer.toString(sec);
+		return s;
 	}
 
 }
