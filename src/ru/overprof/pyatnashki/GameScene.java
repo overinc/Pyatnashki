@@ -350,7 +350,7 @@ public class GameScene extends Scene {
 					}
 
 				};
-				setOfTiles[i].setScale(Multiplexor);
+				//setOfTiles[i].setScale(Multiplexor);
 				attachChild(setOfTiles[i]);
 				registerTouchArea(setOfTiles[i]);
 			}
