@@ -58,7 +58,7 @@ public class GameScene extends Scene {
 		bottomPanelLeft.setColor(0, 0, 0,(float) 0.7);
 		attachChild(bottomPanelLeft);
 		
-		Rectangle bottomPanelRight = new Rectangle(LeftUpperAreaPoint.x + WidthPlitkaWithDistanse * 4 - 18, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH - LeftUpperAreaPoint.x - WidthPlitkaWithDistanse * 4 - 18,  MainMenuScene.bottomPanelHeight_);
+		Rectangle bottomPanelRight = new Rectangle(LeftUpperAreaPoint.x + WidthPlitkaWithDistanse * 4 - 18, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH - LeftUpperAreaPoint.x - WidthPlitkaWithDistanse * 4 + 18,  MainMenuScene.bottomPanelHeight_);
 		bottomPanelRight.setColor(0, 0, 0,(float) 0.7);
 		attachChild(bottomPanelRight);
 		
@@ -67,10 +67,14 @@ public class GameScene extends Scene {
 		attachChild(bottomPanelCenter);
 		
 		
-		counterOfSteps = new ChangeableText(64, PyatnashkiActivity.CAMERA_HEIGHT - 50, PyatnashkiActivity.mFont, "0", 50);
-		attachChild(counterOfSteps);
+		//counterOfSteps = new ChangeableText(64, PyatnashkiActivity.CAMERA_HEIGHT - 50, PyatnashkiActivity.mFont, "0", 50);
+		//attachChild(counterOfSteps);
+		
+		counterOfSteps = new ChangeableText(0, 0,  PyatnashkiActivity.mFont, "0", 50);
+		counterOfSteps.setPosition(bottomPanelLeft.getWidth()/2 - counterOfSteps.getWidth()/2, bottomPanelLeft.getHeight()/2 - counterOfSteps.getHeight()/2);
+		bottomPanelLeft.attachChild(counterOfSteps);
 
-		time = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH - 90, PyatnashkiActivity.CAMERA_HEIGHT - 50, PyatnashkiActivity.mFont, "00:00", 50);
+		time = new ChangeableText(0, 0, PyatnashkiActivity.mFont, "00:00", 50);
 		
 		this.registerUpdateHandler(new TimerHandler(1, true, 
 				new ITimerCallback() {			
@@ -84,7 +88,8 @@ public class GameScene extends Scene {
 			}
 		}));
 		
-		attachChild(time);
+		time.setPosition(bottomPanelRight.getWidth()/2 - time.getWidth()/2, bottomPanelRight.getHeight()/2 - time.getHeight()/2);
+		bottomPanelRight.attachChild(time);
 		setTouchAreaBindingEnabled(true);
 		
 		// хцпнбне онке
