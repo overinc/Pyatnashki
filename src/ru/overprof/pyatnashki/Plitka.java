@@ -29,6 +29,8 @@ public class Plitka extends AnimatedSprite {
 	public int positionY;
 	private Text number;
 	//private ChangeableText zeroone;
+	
+	public static final float Multiplexor = (float) 1.5;
 
 	public Plitka(final float pX, final float pY, final TiledTextureRegion pTextureRegion, int pId,Font pFont) {
 		super(LeftUpperAreaPoint.x + pX * WidthPlitkaWithDistanse, LeftUpperAreaPoint.y + pY * WidthPlitkaWithDistanse, pTextureRegion);
@@ -43,9 +45,14 @@ public class Plitka extends AnimatedSprite {
 		
 		renewRightPos();
 		
+		this.setScale(Multiplexor);
+		
 		String s;
 		s = String.format("%01d",id);		
-		number = new Text(12,10,pFont,s);
+		//number = new Text(12,10,pFont,s);
+		number = new Text(0,0,pFont,s);
+		number.setPosition( (this.mWidth-number.getWidth()) / 2 - 2, (this.mHeight-number.getHeight()) / 2);
+		
 		this.attachChild(number);
 		
 		int x;
