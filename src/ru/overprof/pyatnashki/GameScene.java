@@ -46,38 +46,58 @@ public class GameScene extends Scene {
 	
 	public GameScene(int pLayerCount) {
 		super(pLayerCount);		
-
-		//this.setBackground(new ColorBackground(0.01023f, 0.4867f, 0.2170f));	
+		
 		this.setBackground(new SpriteBackground(PyatnashkiActivity.mGameBackground));
 		
-		time = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-64, 90, PyatnashkiActivity.mFont, "0", 50);
-		
 		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
-		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;	
-		
-		counterOfSteps = new ChangeableText(PyatnashkiActivity.CAMERA_WIDTH-64, 65, PyatnashkiActivity.mFont, "0", 50);
-		this.getLastChild().attachChild(counterOfSteps);
+		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
 
-		initAndOrSortSetOfTiles();
+		// —◊≈“◊» »		
+		
+		Rectangle bottomPanelLeft = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, LeftUpperAreaPoint.x - 25, MainMenuScene.bottomPanelHeight_);
+		bottomPanelLeft.setColor(0, 0, 0,(float) 0.7);
+		attachChild(bottomPanelLeft);
+		
+		Rectangle bottomPanelRight = new Rectangle(LeftUpperAreaPoint.x + WidthPlitkaWithDistanse * 4 - 18, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH - LeftUpperAreaPoint.x - WidthPlitkaWithDistanse * 4 + 18,  MainMenuScene.bottomPanelHeight_);
+		bottomPanelRight.setColor(0, 0, 0,(float) 0.7);
+		attachChild(bottomPanelRight);
+		
+		Rectangle bottomPanelCenter = new Rectangle(bottomPanelLeft.getWidth(), PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_ / 2 + 5, bottomPanelRight.getX() - bottomPanelLeft.getWidth(), MainMenuScene.bottomPanelHeight_ / 2 -5 );
+		bottomPanelCenter.setColor(0, 0, 0,(float) 0.7);
+		attachChild(bottomPanelCenter);
+		
+		
+		//counterOfSteps = new ChangeableText(64, PyatnashkiActivity.CAMERA_HEIGHT - 50, PyatnashkiActivity.mFont, "0", 50);
+		//attachChild(counterOfSteps);
+		
+		counterOfSteps = new ChangeableText(0, 0,  PyatnashkiActivity.mFont, "0", 50);
+		counterOfSteps.setPosition(bottomPanelLeft.getWidth()/2 - counterOfSteps.getWidth()/2, bottomPanelLeft.getHeight()/2 - counterOfSteps.getHeight()/2);
+		bottomPanelLeft.attachChild(counterOfSteps);
+
+		time = new ChangeableText(0, 0, PyatnashkiActivity.mFont, "00:00", 50);
 		
 		this.registerUpdateHandler(new TimerHandler(1, true, 
-				new ITimerCallback() {
-			
+				new ITimerCallback() {			
 			@Override
-			public void onTimePassed(TimerHandler pTimerHandler) {
-				
-				if (MainState.gameStatus_ == GAMESTATUS.GamePlayingStatus && startActions_ && !gamePaused_) {
-					time.setText(""+seconds);
+			public void onTimePassed(TimerHandler pTimerHandler) {				
+				if (MainState.gameStatus_ == GAMESTATUS.GamePlayingStatus && startActions_ && !gamePaused_) {					
+					
+					time.setText(MainMenuScene.convertSecondsToTime(seconds));
 					seconds++;
-				}
-				
+				}				
 			}
 		}));
 		
-		this.getLastChild().attachChild(time);
-		this.setTouchAreaBindingEnabled(true);
+		time.setPosition(bottomPanelRight.getWidth()/2 - time.getWidth()/2, bottomPanelRight.getHeight()/2 - time.getHeight()/2);
+		bottomPanelRight.attachChild(time);
+		setTouchAreaBindingEnabled(true);
 		
-				
+		// »√–Œ¬Œ≈ œŒÀ≈
+		
+		initAndOrSortSetOfTiles();
+		
+		// –≈—“¿–“  ÕŒœ ¿
+		
 		restartButton_ = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mRestartTextureRegion.getWidth() - 32, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mRestartTextureRegion.getHeight() / 2, PyatnashkiActivity.mRestartTextureRegion)
 		{
 			@Override
@@ -86,7 +106,7 @@ public class GameScene extends Scene {
 					initAndOrSortSetOfTiles();
 					counterOfSteps.setText("0");
 					steps = 0;
-					time.setText("0");
+					time.setText("00:00");
 					seconds = 0;
 					startActions_ = false;
 					return true;
@@ -111,7 +131,7 @@ public class GameScene extends Scene {
 			initAndOrSortSetOfTiles();
 			counterOfSteps.setText("0");
 			steps = 0;
-			time.setText("0");
+			time.setText("00:00");
 			seconds = 0;
 			startActions_ = false;
 			
@@ -331,8 +351,8 @@ public class GameScene extends Scene {
 
 				};
 				setOfTiles[i].setScale(Multiplexor);
-				this.getLastChild().attachChild(setOfTiles[i]);
-				this.registerTouchArea(setOfTiles[i]);
+				attachChild(setOfTiles[i]);
+				registerTouchArea(setOfTiles[i]);
 			}
 		}
 		
@@ -406,7 +426,9 @@ public class GameScene extends Scene {
 				RecordsScene.timeRecordCount = seconds;
 				editor.putInt(PyatnashkiActivity.APP_RECORDS_TIME, seconds);
 			}
-			editor.commit();
+			editor.commit();			
+			
+			MainState.mainMenuScene_.UpdateRecordsControls();
 			
 			for (int i = 0; i < COUNTER*COUNTER-1; i++)
 			{

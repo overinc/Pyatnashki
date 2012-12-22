@@ -127,7 +127,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
 		menuFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 50, true, Color.YELLOW);
+		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 40, true, Color.YELLOW);
 		
 		this.mEngine.getTextureManager().loadTexture(this.mFontTexture);
 		this.mEngine.getFontManager().loadFont(this.mFont);
