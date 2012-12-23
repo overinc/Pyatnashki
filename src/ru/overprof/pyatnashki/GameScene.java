@@ -55,15 +55,15 @@ public class GameScene extends Scene {
 		// Ñ×ÅÒ×ÈÊÈ		
 		
 		Rectangle bottomPanelLeft = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, LeftUpperAreaPoint.x - 25, MainMenuScene.bottomPanelHeight_);
-		bottomPanelLeft.setColor(0, 0, 0,(float) 0.7);
+		bottomPanelLeft.setColor(0, 0, 0,(float) 0.6);
 		attachChild(bottomPanelLeft);
 		
 		Rectangle bottomPanelRight = new Rectangle(LeftUpperAreaPoint.x + WidthPlitkaWithDistanse * 4 - 18, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH - LeftUpperAreaPoint.x - WidthPlitkaWithDistanse * 4 + 18,  MainMenuScene.bottomPanelHeight_);
-		bottomPanelRight.setColor(0, 0, 0,(float) 0.7);
+		bottomPanelRight.setColor(0, 0, 0,(float) 0.6);
 		attachChild(bottomPanelRight);
 		
 		Rectangle bottomPanelCenter = new Rectangle(bottomPanelLeft.getWidth(), PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_ / 2 + 5, bottomPanelRight.getX() - bottomPanelLeft.getWidth(), MainMenuScene.bottomPanelHeight_ / 2 -5 );
-		bottomPanelCenter.setColor(0, 0, 0,(float) 0.7);
+		bottomPanelCenter.setColor(0, 0, 0,(float) 0.6);
 		attachChild(bottomPanelCenter);
 		
 		

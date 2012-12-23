@@ -107,12 +107,12 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/restart_button.png", 0 , 0);
 
 		mGameBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mGameBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mGameBackgroundTexture, this, "gfx/Aurora_green.jpg", 0 , 0);
-		mGameBackground = new BaseSprite(0,0,800,480, mGameBackgroundTextureRegion) {};
+		mGameBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mGameBackgroundTexture, this, "gfx/Game_background.jpg", 0 , 0);
+		mGameBackground = new BaseSprite(0, 0, 800, 480, mGameBackgroundTextureRegion) {};
 		
 		mMenuBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mMenuBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mMenuBackgroundTexture, this, "gfx/Aurora_blue.jpg", 0 , 0);
-		mMenuBackground = new BaseSprite(0,0,800,480, mMenuBackgroundTextureRegion) {};		
+		mMenuBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mMenuBackgroundTexture, this, "gfx/Main_menu_background.jpg", 0 , 0);
+		mMenuBackground = new BaseSprite(0, 0, 800 ,480, mMenuBackgroundTextureRegion) {};		
 		
 		mCheckBoxTexture = new Texture(64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mCheckBoxTextureRegion = TextureRegionFactory.createTiledFromAsset(mCheckBoxTexture, this, "gfx/check_box.png", 0, 0, 2, 1);

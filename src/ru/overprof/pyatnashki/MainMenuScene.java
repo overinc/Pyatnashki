@@ -67,7 +67,7 @@ public class MainMenuScene extends CameraScene {
 		// –≈ Œ–ƒ€
 
 		Rectangle bottomPanel = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH, bottomPanelHeight_);
-		bottomPanel.setColor(0, 0, 0, (float) 0.7);
+		bottomPanel.setColor(0, 0, 0, (float) 0.6);
 		attachChild(bottomPanel);
 		
 		s = "best";
