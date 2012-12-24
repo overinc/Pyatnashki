@@ -98,7 +98,7 @@ public class GameScene extends Scene {
 		
 		// –≈—“¿–“  ÕŒœ ¿
 		
-		restartButton_ = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mRestartTextureRegion.getWidth() - 32, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mRestartTextureRegion.getHeight() / 2, PyatnashkiActivity.mRestartTextureRegion)
+		restartButton_ = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mRestartTextureRegion.getWidth() - 30, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mRestartTextureRegion.getHeight() / 2, PyatnashkiActivity.mRestartTextureRegion)
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -115,7 +115,7 @@ public class GameScene extends Scene {
 			}
 		};
 		
-		restartButton_.setScale((float)1.5);
+		//restartButton_.setScale((float)1.5);
 		attachChild(restartButton_);
 		registerTouchArea(restartButton_);		
 		

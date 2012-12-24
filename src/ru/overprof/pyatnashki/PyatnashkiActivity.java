@@ -59,6 +59,9 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture mRestartTexture;
 	public static TextureRegion mRestartTextureRegion;
 	
+	private Texture mStartTexture;
+	public static TextureRegion mStartTextureRegion;
+	
 	private Texture mFontTexture;
 	public static Font mFont;
 	
@@ -98,14 +101,17 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	public void onLoadResources() {
 		
 		mYa = new Texture(128, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka2.png", 0, 0, 2, 1);
+		mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka.png", 0, 0, 2, 1);
 		
 		mWinTexture = new Texture(256, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mWinTextureRegion = TextureRegionFactory.createFromAsset(mWinTexture, this, "gfx/win_window.png", 0, 0);
 		
-		mRestartTexture = new Texture(64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/restart_button.png", 0 , 0);
-
+		mRestartTexture = new Texture(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/Button-Reload-icon.png", 0 , 0);
+		
+		mStartTexture = new Texture(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mStartTextureRegion = TextureRegionFactory.createFromAsset(this.mStartTexture, this, "gfx/start_button.png", 0 , 0);
+		
 		mGameBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mGameBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mGameBackgroundTexture, this, "gfx/Game_background.jpg", 0 , 0);
 		mGameBackground = new BaseSprite(0, 0, 800, 480, mGameBackgroundTextureRegion) {};
@@ -120,6 +126,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		this.mEngine.getTextureManager().loadTexture(mYa);
 		this.mEngine.getTextureManager().loadTexture(mWinTexture);
 		this.mEngine.getTextureManager().loadTexture(mRestartTexture);
+		this.mEngine.getTextureManager().loadTexture(mStartTexture);
 		this.mEngine.getTextureManager().loadTexture(mGameBackgroundTexture);
 		this.mEngine.getTextureManager().loadTexture(mMenuBackgroundTexture);	
 		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);			

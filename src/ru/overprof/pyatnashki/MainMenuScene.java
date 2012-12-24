@@ -39,7 +39,7 @@ public class MainMenuScene extends CameraScene {
 		
 		//  ÕŒœ ¿ —“¿–“¿
 		
-		Rectangle startButton = new Rectangle(50, 50, 200, 50)
+		Sprite startButton = new Sprite(0, 0, PyatnashkiActivity.mStartTextureRegion)
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -50,14 +50,17 @@ public class MainMenuScene extends CameraScene {
 				return false;
 			}
 		};
-		startButton.setPosition(PyatnashkiActivity.CAMERA_WIDTH - startButton.getWidth() - 50, PyatnashkiActivity.CAMERA_HEIGHT / 2 - startButton.getHeight() / 2);
-
-		String s = PyatnashkiStrings.strPlay;
-		Text gameText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
-		startButton.attachChild(gameText);		
 		
-		startButton.setColor(0, 0, 0, 0);
-		attachChild(startButton);
+		//startButton.setScale((float)0.8);
+		startButton.setPosition(PyatnashkiActivity.CAMERA_WIDTH - startButton.getWidth() - 50, PyatnashkiActivity.CAMERA_HEIGHT / 2 - startButton.getHeight() / 2);
+		
+		
+		String s = PyatnashkiStrings.strPlay;
+		Text gameText = new Text(10000, 10000, PyatnashkiActivity.menuFont, s);
+		startButton.attachChild(gameText);	
+		
+		
+		this.attachChild(startButton);
 		registerTouchArea(startButton);		
 		
 		
@@ -68,7 +71,8 @@ public class MainMenuScene extends CameraScene {
 
 		Rectangle bottomPanel = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH, bottomPanelHeight_);
 		bottomPanel.setColor(0, 0, 0, (float) 0.6);
-		attachChild(bottomPanel);
+		this.attachChild(bottomPanel);
+		
 		
 		s = "best";
 		Text bestText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
