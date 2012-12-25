@@ -62,6 +62,9 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture mStartTexture;
 	public static TextureRegion mStartTextureRegion;
 	
+	private Texture mGameBottomPanelTexture;
+	public static TextureRegion mGameBottomPanelTextureRegion;
+	
 	private Texture mFontTexture;
 	public static Font mFont;
 	
@@ -118,7 +121,11 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		
 		mMenuBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mMenuBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mMenuBackgroundTexture, this, "gfx/Main_menu_background.jpg", 0 , 0);
-		mMenuBackground = new BaseSprite(0, 0, 800 ,480, mMenuBackgroundTextureRegion) {};		
+		mMenuBackground = new BaseSprite(0, 0, 800 ,480, mMenuBackgroundTextureRegion) {};
+		
+		mGameBottomPanelTexture = new Texture(512, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mGameBottomPanelTextureRegion = TextureRegionFactory.createFromAsset(this.mGameBottomPanelTexture, this, "gfx/bottom_panel_center.png", 0 , 0);
+		
 		
 		mCheckBoxTexture = new Texture(64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mCheckBoxTextureRegion = TextureRegionFactory.createTiledFromAsset(mCheckBoxTexture, this, "gfx/check_box.png", 0, 0, 2, 1);
@@ -129,7 +136,8 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		this.mEngine.getTextureManager().loadTexture(mStartTexture);
 		this.mEngine.getTextureManager().loadTexture(mGameBackgroundTexture);
 		this.mEngine.getTextureManager().loadTexture(mMenuBackgroundTexture);	
-		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);			
+		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);		
+		this.mEngine.getTextureManager().loadTexture(mGameBottomPanelTexture);	
 		
 		mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
