@@ -71,6 +71,9 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture menuFontTexture;
 	public static Font menuFont;
 	
+	private Texture mNastroikaTexture;
+	public static Font mNastroikaFont;
+	
 	private Texture mGameBackgroundTexture;
 	private TextureRegion mGameBackgroundTextureRegion;
 	public static BaseSprite mGameBackground;
@@ -141,13 +144,19 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		
 		mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
+		
 		menuFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 40, true, Color.YELLOW);
+		
+		mNastroikaTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mNastroikaFont = new Font(this.mNastroikaTexture, Typeface.create(Typeface.DEFAULT, Typeface.NORMAL), 33, true, Color.rgb(0, 210, 213));
 		
 		this.mEngine.getTextureManager().loadTexture(this.mFontTexture);
 		this.mEngine.getFontManager().loadFont(this.mFont);
 		this.mEngine.getTextureManager().loadTexture(this.menuFontTexture);
 		this.mEngine.getFontManager().loadFont(this.menuFont);
+		this.mEngine.getTextureManager().loadTexture(this.mNastroikaTexture);
+		this.mEngine.getFontManager().loadFont(this.mNastroikaFont);
 		
 		PyatnashkiStrings strings = new PyatnashkiStrings(language_);
 		

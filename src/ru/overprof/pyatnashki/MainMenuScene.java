@@ -132,6 +132,7 @@ public class MainMenuScene extends CameraScene {
 			checkBoxRealisticGame.setCurrentTileIndex(0);		
 		checkBoxRealisticGame.setScale((float)1.3);	
 		
+		checkBoxRealisticGame.setPosition(500, PyatnashkiActivity.CAMERA_HEIGHT / 2 - 72);
 		attachChild(checkBoxRealisticGame);		
 		registerTouchArea(checkBoxRealisticGame);
 		
@@ -161,15 +162,18 @@ public class MainMenuScene extends CameraScene {
 			checkBoxHelping.setCurrentTileIndex(0);
 		checkBoxHelping.setScale((float)1.3);	
 		
+		checkBoxHelping.setPosition(500, PyatnashkiActivity.CAMERA_HEIGHT / 2 + 15);
 		attachChild(checkBoxHelping);		
 		registerTouchArea(checkBoxHelping);
 		
 		
 
-		Text realisticText = new Text(50, 150, PyatnashkiActivity.mFont, PyatnashkiStrings.strRealistikPyatn);
-	    attachChild(realisticText);
+		Text realisticText = new Text(50, 150, PyatnashkiActivity.mNastroikaFont, PyatnashkiStrings.strRealistikPyatn);
+		realisticText.setPosition(checkBoxRealisticGame.getX() - realisticText.getWidth() - 25, checkBoxRealisticGame.getY() - 3);
+		attachChild(realisticText);
 	    
-	    Text helpText = new Text(50, 240, PyatnashkiActivity.mFont, PyatnashkiStrings.strShowHelpPosition);
+	    Text helpText = new Text(50, 240, PyatnashkiActivity.mNastroikaFont, PyatnashkiStrings.strShowHelpPosition);
+	    helpText.setPosition(checkBoxHelping.getX() - helpText.getWidth() - 25, checkBoxHelping.getY() - 3);
 	    attachChild(helpText); 
 
 	}
