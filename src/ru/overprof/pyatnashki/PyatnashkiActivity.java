@@ -116,7 +116,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		mWinTextureRegion = TextureRegionFactory.createFromAsset(mWinTexture, this, "gfx/win_window.png", 0, 0);
 		
 		mRestartTexture = new Texture(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/Button-Reload-icon.png", 0 , 0);
+		mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/restart_button.png", 0 , 0);
 		
 		mStartTexture = new Texture(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mStartTextureRegion = TextureRegionFactory.createFromAsset(this.mStartTexture, this, "gfx/start_button.png", 0 , 0);
