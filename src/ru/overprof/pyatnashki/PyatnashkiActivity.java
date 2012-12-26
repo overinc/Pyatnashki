@@ -59,11 +59,23 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture mRestartTexture;
 	public static TextureRegion mRestartTextureRegion;
 	
+	private Texture mStartTexture;
+	public static TextureRegion mStartTextureRegion;
+	
+	private Texture mGameBottomPanelTexture;
+	public static TextureRegion mGameBottomPanelTextureRegion;
+	
+	private Texture mBestRamkaTexture;
+	public static TextureRegion mBestRamkaTextureRegion;
+	
 	private Texture mFontTexture;
 	public static Font mFont;
 	
 	private Texture menuFontTexture;
 	public static Font menuFont;
+	
+	private Texture mNastroikaTexture;
+	public static Font mNastroikaFont;
 	
 	private Texture mGameBackgroundTexture;
 	private TextureRegion mGameBackgroundTextureRegion;
@@ -98,41 +110,59 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	public void onLoadResources() {
 		
 		mYa = new Texture(128, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka2.png", 0, 0, 2, 1);
+		mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka.png", 0, 0, 2, 1);
 		
 		mWinTexture = new Texture(256, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mWinTextureRegion = TextureRegionFactory.createFromAsset(mWinTexture, this, "gfx/win_window.png", 0, 0);
 		
-		mRestartTexture = new Texture(64, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mRestartTexture = new Texture(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mRestartTextureRegion = TextureRegionFactory.createFromAsset(this.mRestartTexture, this, "gfx/restart_button.png", 0 , 0);
-
+		
+		mStartTexture = new Texture(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mStartTextureRegion = TextureRegionFactory.createFromAsset(this.mStartTexture, this, "gfx/start_button.png", 0 , 0);
+		
 		mGameBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mGameBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mGameBackgroundTexture, this, "gfx/Game_background.jpg", 0 , 0);
 		mGameBackground = new BaseSprite(0, 0, 800, 480, mGameBackgroundTextureRegion) {};
 		
 		mMenuBackgroundTexture = new Texture(1024, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mMenuBackgroundTextureRegion = TextureRegionFactory.createFromAsset(this.mMenuBackgroundTexture, this, "gfx/Main_menu_background.jpg", 0 , 0);
-		mMenuBackground = new BaseSprite(0, 0, 800 ,480, mMenuBackgroundTextureRegion) {};		
+		mMenuBackground = new BaseSprite(0, 0, 800 ,480, mMenuBackgroundTextureRegion) {};
 		
+		mGameBottomPanelTexture = new Texture(512, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mGameBottomPanelTextureRegion = TextureRegionFactory.createFromAsset(this.mGameBottomPanelTexture, this, "gfx/bottom_panel_center.png", 0 , 0);
+		
+		mBestRamkaTexture = new Texture(256, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mBestRamkaTextureRegion = TextureRegionFactory.createFromAsset(this.mBestRamkaTexture, this, "gfx/best_ramka.png", 0 , 0);
+				
 		mCheckBoxTexture = new Texture(64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mCheckBoxTextureRegion = TextureRegionFactory.createTiledFromAsset(mCheckBoxTexture, this, "gfx/check_box.png", 0, 0, 2, 1);
 				
 		this.mEngine.getTextureManager().loadTexture(mYa);
 		this.mEngine.getTextureManager().loadTexture(mWinTexture);
 		this.mEngine.getTextureManager().loadTexture(mRestartTexture);
+		this.mEngine.getTextureManager().loadTexture(mStartTexture);
 		this.mEngine.getTextureManager().loadTexture(mGameBackgroundTexture);
 		this.mEngine.getTextureManager().loadTexture(mMenuBackgroundTexture);	
-		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);			
+		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);		
+		this.mEngine.getTextureManager().loadTexture(mGameBottomPanelTexture);
+		this.mEngine.getTextureManager().loadTexture(mBestRamkaTexture);	
 		
 		mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
+		
 		menuFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 40, true, Color.YELLOW);
+		
+		mNastroikaTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mNastroikaFont = new Font(this.mNastroikaTexture, Typeface.create(Typeface.DEFAULT, Typeface.NORMAL), 33, true, Color.WHITE/*Color.rgb(0, 210, 213)*/);
 		
 		this.mEngine.getTextureManager().loadTexture(this.mFontTexture);
 		this.mEngine.getFontManager().loadFont(this.mFont);
 		this.mEngine.getTextureManager().loadTexture(this.menuFontTexture);
 		this.mEngine.getFontManager().loadFont(this.menuFont);
+		this.mEngine.getTextureManager().loadTexture(this.mNastroikaTexture);
+		this.mEngine.getFontManager().loadFont(this.mNastroikaFont);
 		
 		PyatnashkiStrings strings = new PyatnashkiStrings(language_);
 		

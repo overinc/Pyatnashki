@@ -39,7 +39,7 @@ public class MainMenuScene extends CameraScene {
 		
 		//  ÕŒœ ¿ —“¿–“¿
 		
-		Rectangle startButton = new Rectangle(50, 50, 200, 50)
+		Sprite startButton = new Sprite(0, 0, PyatnashkiActivity.mStartTextureRegion)
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -50,14 +50,17 @@ public class MainMenuScene extends CameraScene {
 				return false;
 			}
 		};
-		startButton.setPosition(PyatnashkiActivity.CAMERA_WIDTH - startButton.getWidth() - 50, PyatnashkiActivity.CAMERA_HEIGHT / 2 - startButton.getHeight() / 2);
-
-		String s = PyatnashkiStrings.strPlay;
-		Text gameText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
-		startButton.attachChild(gameText);		
 		
-		startButton.setColor(0, 0, 0, 0);
-		attachChild(startButton);
+		//startButton.setScale((float)0.8);
+		startButton.setPosition(PyatnashkiActivity.CAMERA_WIDTH - startButton.getWidth() - 50, PyatnashkiActivity.CAMERA_HEIGHT / 2 - startButton.getHeight() / 2);
+		
+		
+		String s = PyatnashkiStrings.strPlay;
+		Text gameText = new Text(10000, 10000, PyatnashkiActivity.menuFont, s);
+		startButton.attachChild(gameText);	
+		
+		
+		this.attachChild(startButton);
 		registerTouchArea(startButton);		
 		
 		
@@ -67,22 +70,25 @@ public class MainMenuScene extends CameraScene {
 		// –≈ Œ–ƒ€
 
 		Rectangle bottomPanel = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH, bottomPanelHeight_);
-		bottomPanel.setColor(0, 0, 0, (float) 0.6);
-		attachChild(bottomPanel);
+		bottomPanel.setColor(0, 0, 0, (float) 0.5);
+		this.attachChild(bottomPanel);
 		
-		s = "best";
-		Text bestText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
-		bestText.setPosition(bottomPanel.getWidth() / 2 - bestText.getWidth() / 2 , bottomPanel.getHeight() / 2 - bestText.getHeight() / 2);
-		bottomPanel.attachChild(bestText);
+		Sprite bestRamka = new Sprite(bottomPanel.getWidth() / 2 - 155 / 2, 0, PyatnashkiActivity.mBestRamkaTextureRegion);
+		bottomPanel.attachChild(bestRamka);
+		
+		s = "BEST";
+		//Text bestText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
+		//bestText.setPosition(bottomPanel.getWidth() / 2 - bestText.getWidth() / 2 , bottomPanel.getHeight() / 2 - bestText.getHeight() / 2);
+		//bottomPanel.attachChild(bestText);
 		
 		
 		String stepsRecordText = PyatnashkiStrings.strSteps + ": ";		
 		Text stepsRecordControl = new Text(0, 0, PyatnashkiActivity.menuFont, stepsRecordText);
-		stepsRecordControl.setPosition(0, (bottomPanel.getHeight() - stepsRecordControl.getHeight()) / 2);		
+		stepsRecordControl.setPosition(bestRamka.getWidth() / 2 - stepsRecordControl.getWidth() / 2 - 10, (bottomPanel.getHeight() - stepsRecordControl.getHeight()) / 2);		
 		bottomPanel.attachChild(stepsRecordControl);
 		
 		stepsRecordControlSave_ = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, "0123456789??:", 15);
-		stepsRecordControlSave_.setPosition(stepsRecordControl.getWidth() + 10, (bottomPanel.getHeight() - stepsRecordControlSave_.getHeight()) / 2);		
+		stepsRecordControlSave_.setPosition(stepsRecordControl.getX() + stepsRecordControl.getWidth() + 10, (bottomPanel.getHeight() - stepsRecordControlSave_.getHeight()) / 2);		
 		bottomPanel.attachChild(stepsRecordControlSave_);
 		
 		
@@ -128,6 +134,7 @@ public class MainMenuScene extends CameraScene {
 			checkBoxRealisticGame.setCurrentTileIndex(0);		
 		checkBoxRealisticGame.setScale((float)1.3);	
 		
+		checkBoxRealisticGame.setPosition(500, PyatnashkiActivity.CAMERA_HEIGHT / 2 - 72);
 		attachChild(checkBoxRealisticGame);		
 		registerTouchArea(checkBoxRealisticGame);
 		
@@ -157,15 +164,18 @@ public class MainMenuScene extends CameraScene {
 			checkBoxHelping.setCurrentTileIndex(0);
 		checkBoxHelping.setScale((float)1.3);	
 		
+		checkBoxHelping.setPosition(500, PyatnashkiActivity.CAMERA_HEIGHT / 2 + 15);
 		attachChild(checkBoxHelping);		
 		registerTouchArea(checkBoxHelping);
 		
 		
 
-		Text realisticText = new Text(50, 150, PyatnashkiActivity.mFont, PyatnashkiStrings.strRealistikPyatn);
-	    attachChild(realisticText);
+		Text realisticText = new Text(50, 150, PyatnashkiActivity.mNastroikaFont, PyatnashkiStrings.strRealistikPyatn);
+		realisticText.setPosition(checkBoxRealisticGame.getX() - realisticText.getWidth() - 25, checkBoxRealisticGame.getY() - 3);
+		attachChild(realisticText);
 	    
-	    Text helpText = new Text(50, 240, PyatnashkiActivity.mFont, PyatnashkiStrings.strShowHelpPosition);
+	    Text helpText = new Text(50, 240, PyatnashkiActivity.mNastroikaFont, PyatnashkiStrings.strShowHelpPosition);
+	    helpText.setPosition(checkBoxHelping.getX() - helpText.getWidth() - 25, checkBoxHelping.getY() - 3);
 	    attachChild(helpText); 
 
 	}

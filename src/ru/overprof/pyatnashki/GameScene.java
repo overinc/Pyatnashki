@@ -52,7 +52,7 @@ public class GameScene extends Scene {
 		LeftUpperAreaPoint.x = PyatnashkiActivity.CAMERA_WIDTH / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
 		LeftUpperAreaPoint.y = PyatnashkiActivity.CAMERA_HEIGHT / 2 - WidthPlitkaWithDistanse * 2 + 13/*?*/;
 
-		// —◊≈“◊» »		
+		// —◊≈“◊» »				
 		
 		Rectangle bottomPanelLeft = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_, LeftUpperAreaPoint.x - 25, MainMenuScene.bottomPanelHeight_);
 		bottomPanelLeft.setColor(0, 0, 0,(float) 0.6);
@@ -62,9 +62,12 @@ public class GameScene extends Scene {
 		bottomPanelRight.setColor(0, 0, 0,(float) 0.6);
 		attachChild(bottomPanelRight);
 		
-		Rectangle bottomPanelCenter = new Rectangle(bottomPanelLeft.getWidth(), PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_ / 2 + 5, bottomPanelRight.getX() - bottomPanelLeft.getWidth(), MainMenuScene.bottomPanelHeight_ / 2 -5 );
-		bottomPanelCenter.setColor(0, 0, 0,(float) 0.6);
+		Sprite bottomPanelCenter = new Sprite(bottomPanelLeft.getWidth(), PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_ / 2 - 20, PyatnashkiActivity.mGameBottomPanelTextureRegion);
 		attachChild(bottomPanelCenter);
+		
+//		Rectangle bottomPanelCenter = new Rectangle(bottomPanelLeft.getWidth(), PyatnashkiActivity.CAMERA_HEIGHT - MainMenuScene.bottomPanelHeight_ / 2 + 5, bottomPanelRight.getX() - bottomPanelLeft.getWidth(), MainMenuScene.bottomPanelHeight_ / 2 -5 );
+//		bottomPanelCenter.setColor(0, 0, 0,(float) 0.6);
+//		attachChild(bottomPanelCenter);
 		
 		
 		//counterOfSteps = new ChangeableText(64, PyatnashkiActivity.CAMERA_HEIGHT - 50, PyatnashkiActivity.mFont, "0", 50);
@@ -98,7 +101,7 @@ public class GameScene extends Scene {
 		
 		// –≈—“¿–“  ÕŒœ ¿
 		
-		restartButton_ = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mRestartTextureRegion.getWidth() - 32, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mRestartTextureRegion.getHeight() / 2, PyatnashkiActivity.mRestartTextureRegion)
+		restartButton_ = new Sprite(PyatnashkiActivity.CAMERA_WIDTH - PyatnashkiActivity.mRestartTextureRegion.getWidth() - 30, PyatnashkiActivity.CAMERA_HEIGHT / 2 - PyatnashkiActivity.mRestartTextureRegion.getHeight() / 2, PyatnashkiActivity.mRestartTextureRegion)
 		{
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
@@ -115,7 +118,7 @@ public class GameScene extends Scene {
 			}
 		};
 		
-		restartButton_.setScale((float)1.5);
+		//restartButton_.setScale((float)1.5);
 		attachChild(restartButton_);
 		registerTouchArea(restartButton_);		
 		
