@@ -65,6 +65,9 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	private Texture mGameBottomPanelTexture;
 	public static TextureRegion mGameBottomPanelTextureRegion;
 	
+	private Texture mBestRamkaTexture;
+	public static TextureRegion mBestRamkaTextureRegion;
+	
 	private Texture mFontTexture;
 	public static Font mFont;
 	
@@ -129,7 +132,9 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		mGameBottomPanelTexture = new Texture(512, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mGameBottomPanelTextureRegion = TextureRegionFactory.createFromAsset(this.mGameBottomPanelTexture, this, "gfx/bottom_panel_center.png", 0 , 0);
 		
-		
+		mBestRamkaTexture = new Texture(256, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mBestRamkaTextureRegion = TextureRegionFactory.createFromAsset(this.mBestRamkaTexture, this, "gfx/best_ramka.png", 0 , 0);
+				
 		mCheckBoxTexture = new Texture(64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mCheckBoxTextureRegion = TextureRegionFactory.createTiledFromAsset(mCheckBoxTexture, this, "gfx/check_box.png", 0, 0, 2, 1);
 				
@@ -140,7 +145,8 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		this.mEngine.getTextureManager().loadTexture(mGameBackgroundTexture);
 		this.mEngine.getTextureManager().loadTexture(mMenuBackgroundTexture);	
 		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);		
-		this.mEngine.getTextureManager().loadTexture(mGameBottomPanelTexture);	
+		this.mEngine.getTextureManager().loadTexture(mGameBottomPanelTexture);
+		this.mEngine.getTextureManager().loadTexture(mBestRamkaTexture);	
 		
 		mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
@@ -149,7 +155,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		menuFont = new Font(menuFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.ITALIC), 40, true, Color.YELLOW);
 		
 		mNastroikaTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mNastroikaFont = new Font(this.mNastroikaTexture, Typeface.create(Typeface.DEFAULT, Typeface.NORMAL), 33, true, Color.rgb(0, 210, 213));
+		mNastroikaFont = new Font(this.mNastroikaTexture, Typeface.create(Typeface.DEFAULT, Typeface.NORMAL), 33, true, Color.WHITE/*Color.rgb(0, 210, 213)*/);
 		
 		this.mEngine.getTextureManager().loadTexture(this.mFontTexture);
 		this.mEngine.getFontManager().loadFont(this.mFont);

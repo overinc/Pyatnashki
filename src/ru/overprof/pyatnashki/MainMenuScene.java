@@ -70,23 +70,25 @@ public class MainMenuScene extends CameraScene {
 		// –≈ Œ–ƒ€
 
 		Rectangle bottomPanel = new Rectangle(0, PyatnashkiActivity.CAMERA_HEIGHT - bottomPanelHeight_, PyatnashkiActivity.CAMERA_WIDTH, bottomPanelHeight_);
-		bottomPanel.setColor(0, 0, 0, (float) 0.6);
+		bottomPanel.setColor(0, 0, 0, (float) 0.5);
 		this.attachChild(bottomPanel);
 		
+		Sprite bestRamka = new Sprite(bottomPanel.getWidth() / 2 - 155 / 2, 0, PyatnashkiActivity.mBestRamkaTextureRegion);
+		bottomPanel.attachChild(bestRamka);
 		
-		s = "best";
-		Text bestText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
-		bestText.setPosition(bottomPanel.getWidth() / 2 - bestText.getWidth() / 2 , bottomPanel.getHeight() / 2 - bestText.getHeight() / 2);
-		bottomPanel.attachChild(bestText);
+		s = "BEST";
+		//Text bestText = new Text(0, 0, PyatnashkiActivity.menuFont, s);
+		//bestText.setPosition(bottomPanel.getWidth() / 2 - bestText.getWidth() / 2 , bottomPanel.getHeight() / 2 - bestText.getHeight() / 2);
+		//bottomPanel.attachChild(bestText);
 		
 		
 		String stepsRecordText = PyatnashkiStrings.strSteps + ": ";		
 		Text stepsRecordControl = new Text(0, 0, PyatnashkiActivity.menuFont, stepsRecordText);
-		stepsRecordControl.setPosition(0, (bottomPanel.getHeight() - stepsRecordControl.getHeight()) / 2);		
+		stepsRecordControl.setPosition(bestRamka.getWidth() / 2 - stepsRecordControl.getWidth() / 2 - 10, (bottomPanel.getHeight() - stepsRecordControl.getHeight()) / 2);		
 		bottomPanel.attachChild(stepsRecordControl);
 		
 		stepsRecordControlSave_ = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, "0123456789??:", 15);
-		stepsRecordControlSave_.setPosition(stepsRecordControl.getWidth() + 10, (bottomPanel.getHeight() - stepsRecordControlSave_.getHeight()) / 2);		
+		stepsRecordControlSave_.setPosition(stepsRecordControl.getX() + stepsRecordControl.getWidth() + 10, (bottomPanel.getHeight() - stepsRecordControlSave_.getHeight()) / 2);		
 		bottomPanel.attachChild(stepsRecordControlSave_);
 		
 		
