@@ -82,7 +82,7 @@ public class MainMenuScene extends CameraScene {
 		//bottomPanel.attachChild(bestText);
 		
 		
-		String stepsRecordText = PyatnashkiStrings.strSteps + ": ";		
+		String stepsRecordText = PyatnashkiActivity.resourses.getString(R.string.steps) + ": ";		
 		Text stepsRecordControl = new Text(0, 0, PyatnashkiActivity.menuFont, stepsRecordText);
 		stepsRecordControl.setPosition(bestRamka.getWidth() / 2 - stepsRecordControl.getWidth() / 2 - 10, (bottomPanel.getHeight() - stepsRecordControl.getHeight()) / 2);		
 		bottomPanel.attachChild(stepsRecordControl);
@@ -93,7 +93,7 @@ public class MainMenuScene extends CameraScene {
 		
 		
 		//String timeRecordText = PyatnashkiStrings.strTime + ": ";
-		s = PyatnashkiStrings.strTime + ": ";
+		s = PyatnashkiActivity.resourses.getString(R.string.time) + ": ";
 		ChangeableText timeRecordControl = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, "Время:::", 15);
 		timeRecordControl.setText(s);
 		timeRecordControl.setPosition(bottomPanel.getWidth() - timeRecordControl.getWidth() - 140, (bottomPanel.getHeight() - timeRecordControl.getHeight()) / 2);
@@ -170,11 +170,11 @@ public class MainMenuScene extends CameraScene {
 		
 		
 
-		Text realisticText = new Text(50, 150, PyatnashkiActivity.mNastroikaFont, PyatnashkiStrings.strRealistikPyatn);
+		Text realisticText = new Text(50, 150, PyatnashkiActivity.mNastroikaFont, PyatnashkiActivity.resourses.getString(R.string.realistik));
 		realisticText.setPosition(checkBoxRealisticGame.getX() - realisticText.getWidth() - 25, checkBoxRealisticGame.getY() - 3);
 		attachChild(realisticText);
 	    
-	    Text helpText = new Text(50, 240, PyatnashkiActivity.mNastroikaFont, PyatnashkiStrings.strShowHelpPosition);
+	    Text helpText = new Text(50, 240, PyatnashkiActivity.mNastroikaFont, PyatnashkiActivity.resourses.getString(R.string.help));
 	    helpText.setPosition(checkBoxHelping.getX() - helpText.getWidth() - 25, checkBoxHelping.getY() - 3);
 	    attachChild(helpText); 
 

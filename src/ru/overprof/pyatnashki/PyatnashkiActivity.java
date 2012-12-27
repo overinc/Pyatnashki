@@ -30,6 +30,7 @@ import android.R.string;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -89,6 +90,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	public static TiledTextureRegion mCheckBoxTextureRegion;
 	
 	String language_ = "ru";
+	public static Resources resourses;
 	
 	public static final String APP_PREFERENSES = "settings";
 	public static final String PREF_TYPE_GAME = "type";
@@ -108,6 +110,8 @@ public class PyatnashkiActivity extends BaseGameActivity {
 	
 	@Override
 	public void onLoadResources() {
+		
+		resourses = getResources();
 		
 		mYa = new Texture(128, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mYaTextureRegion = TextureRegionFactory.createTiledFromAsset(this.mYa, this, "gfx/plitka.png", 0, 0, 2, 1);
