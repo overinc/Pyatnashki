@@ -84,9 +84,9 @@ public class GameScene extends Scene {
 			@Override
 			public void onTimePassed(TimerHandler pTimerHandler) {				
 				if (MainState.gameStatus_ == GAMESTATUS.GamePlayingStatus && startActions_ && !gamePaused_) {					
-					
-					time.setText(MainMenuScene.convertSecondsToTime(seconds));
 					seconds++;
+					time.setText(MainMenuScene.convertSecondsToTime(seconds));
+					
 				}				
 			}
 		}));
