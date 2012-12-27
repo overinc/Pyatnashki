@@ -19,24 +19,7 @@ public class RecordsScene extends Scene {
 		
 	}
 	
-	public void Update() {
-		this.detachChildren();
-		
-		String stepsRecordString;
-		if (stepsRecordCount == 0)
-			stepsRecordString = PyatnashkiStrings.strSteps + ": ??";
-		else 
-			stepsRecordString = PyatnashkiStrings.strSteps + ": " + stepsRecordCount;
-		Text stepsRecordControl = new Text(0, 0, PyatnashkiActivity.mFont, stepsRecordString);
-		this.attachChild(stepsRecordControl);
-		
-		String timeRecordString;
-		if (timeRecordCount == 0)
-			timeRecordString = PyatnashkiStrings.strTime + ": ??";
-		else
-			timeRecordString = PyatnashkiStrings.strTime + ": " + timeRecordCount;		
-		Text timeRecordControl = new Text(400, 240, PyatnashkiActivity.mFont, timeRecordString);
-		this.attachChild(timeRecordControl);
+	public void Update() {		
 	}
 	
 	public void Show() {

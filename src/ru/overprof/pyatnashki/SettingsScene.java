@@ -12,76 +12,8 @@ import android.content.SharedPreferences.Editor;
 public class SettingsScene extends Scene {
 
 	public SettingsScene(int pLayerCount) {
-		super(pLayerCount);
+		super(pLayerCount);	
 		
-		this.setBackground(new ColorBackground(0.4942f, 0.4987f, 0.5555f));
-		
-		final String settingsItem1Text1 = PyatnashkiStrings.strRealistikPyatn;
-		final String settingsItem1Text2 = PyatnashkiStrings.strQuickPyatn;		
-		
-		String settingsItem1Text;
-		
-		if (GameScene.REALITY)
-			settingsItem1Text = settingsItem1Text1;
-		else
-			settingsItem1Text = settingsItem1Text2;
-		
-		final ChangeableText changeableTextControl1 = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, settingsItem1Text);
-		Rectangle settingsItem1 = new Rectangle(0, 50, changeableTextControl1.getWidth(), changeableTextControl1.getHeight()){
-			@Override
-			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					if (GameScene.REALITY/*PyatnashkiActivity.mainState_.gameScene_.REALITY*/) {
-						changeableTextControl1.setText(settingsItem1Text2);
-						this.setWidth(changeableTextControl1.getWidth());
-						GameScene.REALITY = false;
-					}
-					else {
-						changeableTextControl1.setText(settingsItem1Text1);
-						this.setWidth(changeableTextControl1.getWidth());
-						GameScene.REALITY = true;
-					}
-				}
-				return true;
-			}
-		};
-		settingsItem1.setColor(20, 100, 200);
-		settingsItem1.attachChild(changeableTextControl1);
-		
-		this.attachChild(settingsItem1);
-		this.registerTouchArea(settingsItem1);		
-		
-		final String settingsItem2Text1 = PyatnashkiStrings.strShowHelpPosition;
-		final String settingsItem2Text2 = PyatnashkiStrings.strWithoutHelp;
-		String settingsItem2Text;
-		if (GameScene.HELPING)
-			settingsItem2Text = settingsItem2Text1;
-		else
-			settingsItem2Text = settingsItem2Text2;
-		final ChangeableText changeableTextControl2 = new ChangeableText(0, 0, PyatnashkiActivity.menuFont, settingsItem2Text);
-		Rectangle settingsItem2 = new Rectangle(0, 150, changeableTextControl2.getWidth(), changeableTextControl2.getHeight()){
-			@Override
-			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					if (GameScene.HELPING) {
-						changeableTextControl2.setText(settingsItem2Text2);
-						this.setWidth(changeableTextControl2.getWidth());
-						GameScene.HELPING = false;
-					}
-					else {
-						changeableTextControl2.setText(settingsItem2Text1);
-						this.setWidth(changeableTextControl2.getWidth());
-						GameScene.HELPING = true;
-					}
-				}
-				return true;
-			}
-		};
-		settingsItem2.setColor(20, 100, 200);
-		settingsItem2.attachChild(changeableTextControl2);
-		
-		this.attachChild(settingsItem2);
-		this.registerTouchArea(settingsItem2);
 		
 		
 	}
