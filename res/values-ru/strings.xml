@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, PyatnashkiActivity!</string>    
-    <string name="app_name">Pyatnashki</string>
+    <string name="app_name">Пятнашки</string>
     <string name="steps">Ходы</string>
     <string name="time">Время</string>
     <string name="realistik">Реалистичные пятнашки</string>
