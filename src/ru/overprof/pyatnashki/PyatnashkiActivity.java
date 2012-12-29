@@ -150,7 +150,7 @@ public class PyatnashkiActivity extends BaseGameActivity {
 		this.mEngine.getTextureManager().loadTexture(mMenuBackgroundTexture);	
 		this.mEngine.getTextureManager().loadTexture(mCheckBoxTexture);		
 		this.mEngine.getTextureManager().loadTexture(mGameBottomPanelTexture);
-		this.mEngine.getTextureManager().loadTexture(mBestRamkaTexture);	
+		this.mEngine.getTextureManager().loadTexture(mBestRamkaTexture);
 		
 		mFontTexture = new Texture(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		mFont = new Font(this.mFontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32, true, Color.WHITE);
