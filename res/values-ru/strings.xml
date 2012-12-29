@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, PyatnashkiActivity!</string>    
+    <string name="app_name">Пятнашки</string>
+    <string name="steps">Ходы</string>
+    <string name="time">Время</string>
+    <string name="realistik">Реалистичные пятнашки</string>
+    <string name="help">Подсказывать позиции</string>
+
+</resources>
