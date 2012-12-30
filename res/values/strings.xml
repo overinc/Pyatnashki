@@ -2,6 +2,10 @@
 <resources>
 
     <string name="hello">Hello World, PyatnashkiActivity!</string>
-    <string name="app_name">Pyatnashki</string>
+    <string name="app_name">Puzzle 15</string>
+    <string name="steps">Steps</string>
+    <string name="time">Time</string>
+    <string name="realistik">Realistic mode</string>
+    <string name="help">To prompt positions</string>
 
 </resources>
